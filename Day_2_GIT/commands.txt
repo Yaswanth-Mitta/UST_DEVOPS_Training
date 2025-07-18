@@ -1,0 +1,79 @@
+    1  ls
+    2  man
+    3  man man
+    4  pwd
+    5  ls
+    6  pwd
+    7  cd..
+    8  ls
+    9  cd..
+   10  cd ..
+   11  ls
+   12  cd ubuntu/
+   13  wget install git
+   14  sudo apt install git
+   15  git 
+   16  git status
+   17  history
+   18  history
+   19  ls
+   20  sudo apt install git
+   21  git 
+   22  sudo apt update 
+   23  git
+   24  sudo apt install git
+   25  git -v
+   26  git --version
+   27  clear
+   28  history
+   29  git config --list
+   30  git config --global user.name "Yaswanth Mitta"
+   31  git config --global user.email "yaswanthmitta@gmail.com"
+   32  history
+   33  ssh-keygen -t ed25519 -C "yaswanthmitta@gmail.com"
+   34  cat ~/.ssh/id_ed25519.pub
+   35  ssh -T git@github.com
+   36  https://github.com/Yaswanth-Mitta/UST_DEVOPS_Training.git
+   37  ls
+   38  git clone https://github.com/Yaswanth-Mitta/UST_DEVOPS_Training.git
+   39  git ls
+   40  ls
+   41  cd UST_DEVOPS_Training/
+   42  ls
+   43  mkdir DAY_2_GITT
+   44  ls
+   45  history
+   46  touch commands.txt
+   47  history >> commands.txt 
+   48  cat commands.txt 
+   49  git status
+   50  git add .
+   51  git commit -m "added Intial files"
+   52  git push orign main
+   53  git push origin main
+   54  git remote remove origin
+   55  git remote add origin git@github.com:Yaswanth-Mitta/UST_DEVOPS_Training.git
+   56  git push -u origin main
+   57  ls
+   58  rm -rf DAY_2_GITT/
+   59  ls
+   60  mv commands.txt DAY_2_GIT
+   61  ls
+   62  hellore
+   63  ls
+   64  cd DAY_2_GIT
+   65  ls
+   66  cat DAY_2_GIT 
+   67  ls
+   68  mv DAY_2_GIT DAY_2_GIT/commands.txt
+   69  mkdir Day_2_GIT
+   70  mv DAY_2_GIT 
+   71  ls
+   72  mv DAY_2_GIT Day_2_GIT/
+   73  ls
+   74  cd Day_2_GIT/
+   75  ls
+   76  touch commands.txt
+   77  rm DAY_2_GIT 
+   78  ls
+   79  history > commands.txt
