@@ -77,3 +77,117 @@
    77  rm DAY_2_GIT 
    78  ls
    79  history > commands.txt
+   80  cat commands.txt 
+   81  clear
+   82  ls
+   83  git stautus
+   84  git status
+   85  git add .
+   86  git commit -m "Revised Initial Commit"
+   87  git push origin main
+   88  ls
+   89  cd UST_DEVOPS_Training/
+   90  ls
+   91  cd Day_2_GIT/
+   92  cat commands.txt 
+   93  cd ..
+   94  git 
+   95  git status
+   96  mkdir git-pro
+   97  ls
+   98  cd git-pro/
+   99  git init -y
+  100  git init 
+  101  git status
+  102  touch f1.txt
+  103  git add .
+  104  git commit -m "added f1"
+  105  git status
+  106  git log
+  107  git log --oneline
+  108  git switch -c feature-a
+  109  touch a.txt
+  110  git add .
+  111  git commit -m "added a.txt"
+  112  git status
+  113  git branch
+  114  git maintenance 
+  115  ls
+  116  git checkout master
+  117  ls
+  118  git merge feature-a
+  119  ls
+  120  vim a.txt
+  121  git branch
+  122  git switch feature-a 
+  123  cat a.txt
+  124  vim a.txt
+  125  git status
+  126  git commit -m "checking merge conflicts"
+  127  git status
+  128  git add .
+  129  git commit -m "checking merge conflicts"
+  130  git switch master
+  131  cat a.txt
+  132  ls
+  133  vim a.txt
+  134  git branch
+  135  git switch feature-a 
+  136  cat a.txt 
+  137  git switch master 
+  138  cat a.txt 
+  139  vim a.txt
+  140  cat a.txt 
+  141  git merge feature-a 
+  142  cat a.txt 
+  143  git diff
+  144  history
+  145  ls
+  146  cd git-pro/
+  147  ls
+  148  git status
+  149  git add .
+  150  git commit -m "merging"
+  151  git status
+  152  git branch
+  153  git switch feature-a 
+  154  git status
+  155  git branch
+  156  git switch master 
+  157  git branch -d feature-a 
+  158  git branch -D feature-a 
+  159  git switch -c new-branch-1
+  160  touch tmp1.txt
+  161  echo hwllow world > temp1.txt
+  162  cat temp.txt
+  163  cat temp1.txt
+  164  git add.
+  165  git add .
+  166  git commit -m "created a branch for trying rebase"
+  167  git checkout main
+  168  git checkout master 
+  169  git branch
+  170  touch temp2.txt
+  171  echo simple commity for master branch > temp2.txt
+  172  git add .
+  173  git commit -m "adding commits for main branch"
+  174  echo now we can do either rebbase or merge let me do rease 
+  175  git switch new-branch-1 
+  176  git rebase main
+  177  git rebase master 
+  178  git chekcout master 
+  179  git  checkout master
+  180  git merge new-branch-1 
+  181  git status
+  182  git branch
+  183  history
+  184  ls
+  185  cd UST_DEVOPS_Training/
+  186  ls
+  187  cd Day_2_GIT/
+  188  ls
+  189  history 
+  190  ls
+  191  history >> commands.txt
+  192  cat commands.txt
+  193  history > commands.txt
