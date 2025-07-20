@@ -1,0 +1,679 @@
+This file contains all the terminal input and output as it is 
+
+
+
+jolly_hertz
+root@ip-172-31-4-0:/home/ubuntu#
+root@ip-172-31-4-0:/home/ubuntu# dcoker ps -a
+Command 'dcoker' not found, did you mean:
+  command 'docker' from snap docker (28.1.1+1)
+  command 'docker' from deb podman-docker (3.4.4+ds1-1ubuntu1.22.04.3)      
+  command 'docker' from deb docker.io (26.1.3-0ubuntu1~22.04.1)
+See 'snap info <snapname>' for additional versions.
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset                                            ssh -i .\Mitta.pem ubuntu@18.116.62.178s\yaswa\Desktop\UST_DEVOPS_Training>
+Welcome to Ubuntu 22.04.5 LTS (GNU/Linux 6.8.0-1029-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Sat Jul 19 11:21:34 UTC 2025
+
+  System load:  0.0               Processes:             129
+  Usage of /:   38.0% of 7.57GB   Users logged in:       1
+  Memory usage: 10%               IPv4 address for eth0: 172.31.4.0
+  Swap usage:   0%
+
+ * Ubuntu Pro delivers the most comprehensive open source security and      
+   compliance features.
+
+   https://ubuntu.com/aws/pro
+
+Expanded Security Maintenance for Applications is not enabled.
+
+86 updates can be applied immediately.
+67 of these updates are standard security updates.
+To see these additional updates run: apt list --upgradable
+
+1 additional security update can be applied with ESM Apps.
+Learn more about enabling ESM Apps service at https://ubuntu.com/esm        
+
+New release '24.04.2 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+
+Last login: Sat Jul 19 11:12:43 2025 from 49.37.135.21
+ubuntu@ip-172-31-4-0:~$ sudo su
+root@ip-172-31-4-0:/home/ubuntu# docker exec hello pwd
+/
+root@ip-172-31-4-0:/home/ubuntu# docker exec hello ls
+bin
+boot
+dev
+etc
+home
+lib
+lib64
+media
+mnt
+opt
+proc
+root
+run
+sbin
+srv
+sys
+tmp
+usr
+var
+root@ip-172-31-4-0:/home/ubuntu# docker exec hello whoami
+root
+root@ip-172-31-4-0:/home/ubuntu# exit
+exit
+ubuntu@ip-172-31-4-0:~$ sudo su
+root@ip-172-31-4-0:/home/ubuntu# docker ps -a
+CONTAINER ID   IMAGE         COMMAND       CREATED             STATUS                           PORTS     NAMES
+97ce5cf7c127   ubuntu        "bash"        4 minutes ago       Up 16 seconds
+                              hello
+0a2defd9add3   ubuntu        "/bin/bash"   12 minutes ago      Exited (0) 12 minutes ago                  competent_feynman
+1ef62df33da2   ubuntu        "/bin/bash"   About an hour ago   Exited (0) 7 minutes ago                   hel
+1022b413fdd4   ubuntu        "hel"         About an hour ago   Created                                    upbeat_payne
+e1f34704d978   ubuntu        "/bin/bash"   About an hour ago   Exited (0) About an hour ago               nervous_hypatia
+be95b3d29617   ubuntu        "/bin/bash"   2 hours ago         Exited (137) About an hour ago             jolly_hertz
+3f7e01a0b6bb   ubuntu        "/bin/bash"   2 hours ago         Exited (127) 2 hours ago                   trusting_greider
+a671e19820a6   hello-world   "/hello"      2 hours ago         Exited (0) 2 hours ago                     blissful_mclaren
+root@ip-172-31-4-0:/home/ubuntu# docker run -it hello bash
+Unable to find image 'hello:latest' locally
+docker: Error response from daemon: pull access denied for hello, repository does not exist or may require 'docker login': denied: requested access to the resource is denied.
+See 'docker run --help'.
+root@ip-172-31-4-0:/home/ubuntu# docker ps -a
+CONTAINER ID   IMAGE         COMMAND       CREATED             STATUS                           PORTS     NAMES
+97ce5cf7c127   ubuntu        "bash"        5 minutes ago       Up About a minute                          hello
+0a2defd9add3   ubuntu        "/bin/bash"   14 minutes ago      Exited (0) 14 minutes ago                  competent_feynman
+1ef62df33da2   ubuntu        "/bin/bash"   About an hour ago   Exited (0) 8 minutes ago                   hel
+1022b413fdd4   ubuntu        "hel"         About an hour ago   Created                                    upbeat_payne
+e1f34704d978   ubuntu        "/bin/bash"   About an hour ago   Exited (0) About an hour ago               nervous_hypatia
+be95b3d29617   ubuntu        "/bin/bash"   2 hours ago         Exited (137) About an hour ago             jolly_hertz
+3f7e01a0b6bb   ubuntu        "/bin/bash"   2 hours ago         Exited (127) 2 hours ago                   trusting_greider
+a671e19820a6   hello-world   "/hello"      2 hours ago         Exited (0) 2 hours ago                     blissful_mclaren
+root@ip-172-31-4-0:/home/ubuntu# docker exec --help
+
+Usage:  docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+
+Execute a command in a running container
+
+Aliases:
+  docker container exec, docker exec
+
+Options:
+  -d, --detach               Detached mode: run command in the background   
+      --detach-keys string   Override the key sequence for detaching        
+                             a container
+  -e, --env list             Set environment variables
+      --env-file list        Read in a file of environment variables        
+  -i, --interactive          Keep STDIN open even if not attached
+      --privileged           Give extended privileges to the command        
+  -t, --tty                  Allocate a pseudo-TTY
+  -u, --user string          Username or UID (format:
+                             "<name|uid>[:<group|gid>]")
+  -w, --workdir string       Working directory inside the container
+root@ip-172-31-4-0:/home/ubuntu# docker exec -ai hello
+unknown shorthand flag: 'a' in -ai
+See 'docker exec --help'.
+root@ip-172-31-4-0:/home/ubuntu# docker exec -it hello bash
+root@97ce5cf7c127:/# ls
+bin   dev  home  lib64  mnt  proc  run   srv  tmp  var
+boot  etc  lib   media  opt  root  sbin  sys  usr
+root@97ce5cf7c127:/# pwd 
+/
+root@97ce5cf7c127:/# time
+
+real    0m0.000s
+user    0m0.000s
+sys     0m0.000s
+root@97ce5cf7c127:/# date
+Sat Jul 19 11:28:43 UTC 2025
+root@97ce5cf7c127:/# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training> ssh -i .\Mitta.pem ubuntu@18.116.62.178
+Welcome to Ubuntu 22.04.5 LTS (GNU/Linux 6.8.0-1029-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Sat Jul 19 11:57:18 UTC 2025
+
+  System load:  0.0               Processes:             123
+  Usage of /:   38.2% of 7.57GB   Users logged in:       1
+  Memory usage: 10%               IPv4 address for eth0: 172.31.4.0
+  Swap usage:   0%
+
+ * Ubuntu Pro delivers the most comprehensive open source security and      
+   compliance features.
+
+   https://ubuntu.com/aws/pro
+
+Expanded Security Maintenance for Applications is not enabled.
+
+86 updates can be applied immediately.
+67 of these updates are standard security updates.
+To see these additional updates run: apt list --upgradable
+
+1 additional security update can be applied with ESM Apps.
+Learn more about enabling ESM Apps service at https://ubuntu.com/esm        
+
+New release '24.04.2 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+
+Last login: Sat Jul 19 11:21:35 2025 from 49.37.135.21
+ubuntu@ip-172-31-4-0:~$ sudo su
+root@ip-172-31-4-0:/home/ubuntu# docker start hello
+hello
+root@ip-172-31-4-0:/home/ubuntu# docker ps -a
+CONTAINER ID   IMAGE         COMMAND       CREATED          STATUS          
+            PORTS     NAMES
+97ce5cf7c127   ubuntu        "bash"        36 minutes ago   Up 31 minutes                         hello
+0a2defd9add3   ubuntu        "/bin/bash"   44 minutes ago   Exited (0) 44 minutes ago             competent_feynman
+1ef62df33da2   ubuntu        "/bin/bash"   2 hours ago      Exited (0) 38 minutes ago             hel
+1022b413fdd4   ubuntu        "hel"         2 hours ago      Created         
+                      upbeat_payne
+e1f34704d978   ubuntu        "/bin/bash"   2 hours ago      Exited (0) 2 hours ago                nervous_hypatia
+be95b3d29617   ubuntu        "/bin/bash"   2 hours ago      Exited (137) 2 hours ago              jolly_hertz
+3f7e01a0b6bb   ubuntu        "/bin/bash"   2 hours ago      Exited (127) 2 hours ago              trusting_greider
+a671e19820a6   hello-world   "/hello"      2 hours ago      Exited (0) 2 hours ago                blissful_mclaren
+root@ip-172-31-4-0:/home/ubuntu# docker stop hello
+hello
+root@ip-172-31-4-0:/home/ubuntu# docker ps -a
+CONTAINER ID   IMAGE         COMMAND       CREATED          STATUS          
+             PORTS     NAMES
+97ce5cf7c127   ubuntu        "bash"        36 minutes ago   Exited (137) 5 seconds ago             hello
+0a2defd9add3   ubuntu        "/bin/bash"   45 minutes ago   Exited (0) 45 minutes ago              competent_feynman
+1ef62df33da2   ubuntu        "/bin/bash"   2 hours ago      Exited (0) 39 minutes ago              hel
+1022b413fdd4   ubuntu        "hel"         2 hours ago      Created         
+                       upbeat_payne
+e1f34704d978   ubuntu        "/bin/bash"   2 hours ago      Exited (0) 2 hours ago                 nervous_hypatia
+be95b3d29617   ubuntu        "/bin/bash"   2 hours ago      Exited (137) 2 hours ago               jolly_hertz
+3f7e01a0b6bb   ubuntu        "/bin/bash"   2 hours ago      Exited (127) 2 hours ago               trusting_greider
+a671e19820a6   hello-world   "/hello"      2 hours ago      Exited (0) 2 hours ago                 blissful_mclaren
+root@ip-172-31-4-0:/home/ubuntu# docker start hello bash
+hello
+Error response from daemon: No such container: bash
+Error: failed to start containers: bash
+root@ip-172-31-4-0:/home/ubuntu# docker exec hello  bash
+root@ip-172-31-4-0:/home/ubuntu# docker ps -a
+CONTAINER ID   IMAGE         COMMAND       CREATED          STATUS          
+            PORTS     NAMES
+97ce5cf7c127   ubuntu        "bash"        37 minutes ago   Up 21 seconds                         hello
+0a2defd9add3   ubuntu        "/bin/bash"   45 minutes ago   Exited (0) 45 minutes ago             competent_feynman
+1ef62df33da2   ubuntu        "/bin/bash"   2 hours ago      Exited (0) 39 minutes ago             hel
+1022b413fdd4   ubuntu        "hel"         2 hours ago      Created         
+                      upbeat_payne
+e1f34704d978   ubuntu        "/bin/bash"   2 hours ago      Exited (0) 2 hours ago                nervous_hypatia
+be95b3d29617   ubuntu        "/bin/bash"   2 hours ago      Exited (137) 2 hours ago              jolly_hertz
+3f7e01a0b6bb   ubuntu        "/bin/bash"   2 hours ago      Exited (127) 2 hours ago              trusting_greider
+a671e19820a6   hello-world   "/hello"      2 hours ago      Exited (0) 2 hours ago                blissful_mclaren
+root@ip-172-31-4-0:/home/ubuntu# docker exec -it hello ls
+bin   dev  home  lib64  mnt  proc  run   srv  tmp  var
+boot  etc  lib   media  opt  root  sbin  sys  usr
+root@ip-172-31-4-0:/home/ubuntu# pwd
+/home/ubuntu
+root@ip-172-31-4-0:/home/ubuntu# pwd
+/home/ubuntu
+root@ip-172-31-4-0:/home/ubuntu# docker
+
+Usage:  docker [OPTIONS] COMMAND
+
+A self-sufficient runtime for containers
+
+Common Commands:
+  run         Create and run a new container from an image
+  exec        Execute a command in a running container
+  ps          List containers
+  build       Build an image from a Dockerfile
+  pull        Download an image from a registry
+  push        Upload an image to a registry
+  images      List images
+  login       Authenticate to a registry
+  logout      Log out from a registry
+  search      Search Docker Hub for images
+  version     Show the Docker version information
+  info        Display system-wide information
+
+Management Commands:
+  builder     Manage builds
+  container   Manage containers
+  context     Manage contexts
+  image       Manage images
+  manifest    Manage Docker image manifests and manifest lists
+  network     Manage networks
+  plugin      Manage plugins
+  system      Manage Docker
+  trust       Manage trust on Docker images
+  volume      Manage volumes
+
+Swarm Commands:
+  swarm       Manage Swarm
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  events      Get real time events from the server
+  export      Export a container's filesystem as a tar archive
+  history     Show the history of an image
+  import      Import the contents from a tarball to create a filesystem image
+  inspect     Return low-level information on Docker objects
+  kill        Kill one or more running containers
+  load        Load an image from a tar archive or STDIN
+  logs        Fetch the logs of a container
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container    
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  rmi         Remove one or more images
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  wait        Block until one or more containers stop, then print their exit codes
+
+Global Options:
+      --config string      Location of client config files (default
+                           "/root/.docker")
+  -c, --context string     Name of the context to use to connect to
+                           the daemon (overrides DOCKER_HOST env var        
+                           and default context set with "docker
+                           context use")
+  -D, --debug              Enable debug mode
+  -H, --host list          Daemon socket to connect to
+  -l, --log-level string   Set the logging level ("debug", "info",
+                           "warn", "error", "fatal") (default "info")       
+      --tls                Use TLS; implied by --tlsverify
+      --tlscacert string   Trust certs signed only by this CA
+                           (default "/root/.docker/ca.pem")
+      --tlscert string     Path to TLS certificate file (default
+                           "/root/.docker/cert.pem")
+      --tlskey string      Path to TLS key file (default
+                           "/root/.docker/key.pem")
+      --tlsverify          Use TLS and verify the remote
+  -v, --version            Print version information and quit
+
+Run 'docker COMMAND --help' for more information on a command.
+
+For more help on how to use Docker, head to https://docs.docker.com/go/guides/
+root@ip-172-31-4-0:/home/ubuntu# docker exec -it hello date
+Sat Jul 19 12:01:11 UTC 2025
+root@ip-172-31-4-0:/home/ubuntu# docker exec it hello bash
+Error response from daemon: No such container: it
+root@ip-172-31-4-0:/home/ubuntu# docker exec -it hello bash
+root@97ce5cf7c127:/# pwd
+/
+root@97ce5cf7c127:/# ls
+bin   dev  home  lib64  mnt  proc  run   srv  tmp  var
+boot  etc  lib   media  opt  root  sbin  sys  usr
+
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training>
+
+
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training>
+
+
+
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training>
+
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training>
+
+
+
+
+
+
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training>
+
+
+
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training>
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training>
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training>
+
+
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training>
+
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training>
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training>
+
+
+
+
+
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training>
+
+
+
+
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training>
+
+
+
+
+
+
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training>
+
+
+
+
+
+
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training>
+
+
+
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training>
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training> ssh -i .\Mitta.pem ubuntu@18.116.62.178
+Welcome to Ubuntu 22.04.5 LTS (GNU/Linux 6.8.0-1029-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Sat Jul 19 13:14:06 UTC 2025
+
+  System load:  0.0               Processes:             125
+  Usage of /:   43.2% of 7.57GB   Users logged in:       1
+  Memory usage: 10%               IPv4 address for eth0: 172.31.4.0
+  Swap usage:   0%
+
+ * Ubuntu Pro delivers the most comprehensive open source security and
+   compliance features.
+
+   https://ubuntu.com/aws/pro
+
+Expanded Security Maintenance for Applications is not enabled.
+
+86 updates can be applied immediately.
+67 of these updates are standard security updates.
+To see these additional updates run: apt list --upgradable
+
+1 additional security update can be applied with ESM Apps.
+Learn more about enabling ESM Apps service at https://ubuntu.com/esm
+
+New release '24.04.2 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+
+Last login: Sat Jul 19 12:15:30 2025 from 49.37.135.21
+ubuntu@ip-172-31-4-0:~$ sudo su
+root@ip-172-31-4-0:/home/ubuntu# history
+
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training> ssh -i .\Mitta.pem ubuntu@18.116.62.178
+Welcome to Ubuntu 22.04.5 LTS (GNU/Linux 6.8.0-1029-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Sat Jul 19 13:39:02 UTC 2025
+
+  System load:  0.0               Processes:             125
+  Usage of /:   43.2% of 7.57GB   Users logged in:       1
+  Memory usage: 11%               IPv4 address for eth0: 172.31.4.0
+  Swap usage:   0%
+
+ * Ubuntu Pro delivers the most comprehensive open source security and
+   compliance features.
+
+   https://ubuntu.com/aws/pro
+
+Expanded Security Maintenance for Applications is not enabled.
+
+86 updates can be applied immediately.
+67 of these updates are standard security updates.
+To see these additional updates run: apt list --upgradable
+
+1 additional security update can be applied with ESM Apps.
+Learn more about enabling ESM Apps service at https://ubuntu.com/esm
+
+New release '24.04.2 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+
+Last login: Sat Jul 19 13:15:26 2025 from 49.37.135.21
+ubuntu@ip-172-31-4-0:~$ sudo su
+root@ip-172-31-4-0:/home/ubuntu# docker search ubuntu
+NAME                             DESCRIPTION                                     STARS     OFFICIAL
+ubuntu                           Ubuntu is a Debian-based Linux operating sys…   17635     [OK]
+ubuntu/squid                     Squid is a caching proxy for the Web. Long-t…   117
+ubuntu/nginx                     Nginx, a high-performance reverse proxy & we…   131
+ubuntu/cortex                    Cortex provides storage for Prometheus. Long…   4
+ubuntu/kafka                     Apache Kafka, a distributed event streaming …   55
+ubuntu/apache2                   Apache, a secure & extensible open-source HT…   97
+ubuntu/prometheus                Prometheus is a systems and service monitori…   73
+ubuntu/bind9                     BIND 9 is a very flexible, full-featured DNS…   110
+ubuntu/zookeeper                 ZooKeeper maintains configuration informatio…   13
+ubuntu/postgres                  PostgreSQL is an open source object-relation…   41
+ubuntu/mysql                     MySQL open source fast, stable, multi-thread…   69
+ubuntu/jre                       Distroless Java runtime based on Ubuntu. Lon…   21
+ubuntu/dotnet-aspnet             Chiselled Ubuntu runtime image for ASP.NET a…   25
+ubuntu/redis                     Redis, an open source key-value store. Long-…   23
+ubuntu/python                    A chiselled Ubuntu rock with the Python runt…   24
+ubuntu/dotnet-deps               Chiselled Ubuntu for self-contained .NET & A…   16
+ubuntu/grafana                   Grafana, a feature rich metrics dashboard & …   12
+ubuntu/dotnet-runtime            Chiselled Ubuntu runtime image for .NET apps…   21
+ubuntu/memcached                 Memcached, in-memory keyvalue store for smal…   5
+ubuntu/prometheus-alertmanager   Alertmanager handles client alerts from Prom…   10
+ubuntu/cassandra                 Cassandra, an open source NoSQL distributed …   2
+ubuntu/mlflow                    MLFlow: for managing the machine learning li…   6
+ubuntu/telegraf                  Telegraf collects, processes, aggregates & w…   4
+ubuntu/chiselled-jre             [MOVED TO ubuntu/jre] Chiselled JRE: distrol…   3
+ubuntu/grafana-agent             Ubuntu ROCK for Grafana Agent, an open-sourc…   0
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training>
+
+
+ubuntu/memcached                 Memcached, in-memory keyvalue store for smal…   5
+ubuntu/prometheus-alertmanager   Alertmanager handles client alerts from Prom…   10
+ubuntu/cassandra                 Cassandra, an open source NoSQL distributed …   2
+ubuntu/mlflow                    MLFlow: for managing the machine learning li…   6
+ubuntu/telegraf                  Telegraf collects, processes, aggregates & w…   4
+ubuntu/chiselled-jre             [MOVED TO ubuntu/jre] Chiselled JRE: distrol…   3
+ubuntu/grafana-agent             Ubuntu ROCK for Grafana Agent, an open-sourc…   0
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training>
+ubuntu/memcached                 Memcached, in-memory keyvalue store for smal…   5
+ubuntu/prometheus-alertmanager   Alertmanager handles client alerts from Prom…   10
+ubuntu/cassandra                 Cassandra, an open source NoSQL distributed …   2
+ubuntu/mlflow                    MLFlow: for managing the machine learning li…   6
+ubuntu/telegraf                  Telegraf collects, processes, aggregates & w…   4
+ubuntu/chiselled-jre             [MOVED TO ubuntu/jre] Chiselled JRE: distrol…   3
+ubuntu/grafana-agent             Ubuntu ROCK for Grafana Agent, an open-sourc…   0
+ubuntu/memcached                 Memcached, in-memory keyvalue store for smal…   5
+ubuntu/prometheus-alertmanager   Alertmanager handles client alerts from Prom…   10
+ubuntu/cassandra                 Cassandra, an open source NoSQL distributed …   2
+ubuntu/mlflow                    MLFlow: for managing the machine learning li…   6
+ubuntu/telegraf                  Telegraf collects, processes, aggregates & w…   4
+ubuntu/chiselled-jre             [MOVED TO ubuntu/jre] Chiselled JRE: distrol…   3
+ubuntu/grafana-agent             Ubuntu ROCK for Grafana Agent, an open-sourc…   0
+ubuntu/memcached                 Memcached, in-memory keyvalue store for smal…   5
+ubuntu/prometheus-alertmanager   Alertmanager handles client alerts from Prom…   10
+ubuntu/cassandra                 Cassandra, an open source NoSQL distributed …   2
+ubuntu/mlflow                    MLFlow: for managing the machine learning li…   6
+ubuntu/telegraf                  Telegraf collects, processes, aggregates & w…   4
+ubuntu/memcached                 Memcached, in-memory keyvalue store for smal…   5
+ubuntu/prometheus-alertmanager   Alertmanager handles client alerts from Prom…   10
+ubuntu/cassandra                 Cassandra, an open source NoSQL distributed …   2
+ubuntu/mlflow                    MLFlow: for managing the machine learning li…   6
+ubuntu/cassandra                 Cassandra, an open source NoSQL distributed …   2
+ubuntu/mlflow                    MLFlow: for managing the machine learning li…   6
+ubuntu/telegraf                  Telegraf collects, processes, aggregates & w…   4
+ubuntu/telegraf                  Telegraf collects, processes, aggregates & w…   4
+ubuntu/chiselled-jre             [MOVED TO ubuntu/jre] Chiselled JRE: distrol…   3
+ubuntu/chiselled-jre             [MOVED TO ubuntu/jre] Chiselled JRE: distrol…   3
+ubuntu/grafana-agent             Ubuntu ROCK for Grafana Agent, an open-sourc…   0
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training> ssh -i .\Mitta.pem ubuntu@18.116.62.178
+Welcome to Ubuntu 22.04.5 LTS (GNU/Linux 6.8.0-1029-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Sat Jul 19 14:30:53 UTC 2025
+
+  System load:  0.0               Processes:             125
+  Usage of /:   43.2% of 7.57GB   Users logged in:       1
+  Memory usage: 10%               IPv4 address for eth0: 172.31.4.0
+  Swap usage:   0%
+
+ * Ubuntu Pro delivers the most comprehensive open source security and
+   compliance features.
+
+   https://ubuntu.com/aws/pro
+
+Expanded Security Maintenance for Applications is not enabled.
+
+86 updates can be applied immediately.
+67 of these updates are standard security updates.
+To see these additional updates run: apt list --upgradable
+
+1 additional security update can be applied with ESM Apps.
+Learn more about enabling ESM Apps service at https://ubuntu.com/esm
+
+New release '24.04.2 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+
+Last login: Sat Jul 19 13:39:03 2025 from 49.37.135.21
+ubuntu@ip-172-31-4-0:~$ sudo su
+root@ip-172-31-4-0:/home/ubuntu# docker run ubuntu
+root@ip-172-31-4-0:/home/ubuntu# docker ps -a
+CONTAINER ID   IMAGE         COMMAND       CREATED         STATUS                     PORTS     NAMES
+ab3fc7c87150   ubuntu        "/bin/bash"   6 seconds ago   Exited (0) 5 seconds ago             wonderful_carver
+9a7c8406daf3   ubuntu        "bash"        2 hours ago     Up 2 hours                           amazing_goodall
+97ce5cf7c127   ubuntu        "bash"        3 hours ago     Up 3 hours                           hello
+0a2defd9add3   ubuntu        "/bin/bash"   3 hours ago     Exited (0) 3 hours ago               competent_feynman
+1ef62df33da2   ubuntu        "/bin/bash"   4 hours ago     Exited (0) 3 hours ago               hel
+1022b413fdd4   ubuntu        "hel"         4 hours ago     Created                              upbeat_payne
+e1f34704d978   ubuntu        "/bin/bash"   4 hours ago     Exited (0) 4 hours ago               nervous_hypatia
+be95b3d29617   ubuntu        "/bin/bash"   5 hours ago     Exited (137) 4 hours ago             jolly_hertz
+3f7e01a0b6bb   ubuntu        "/bin/bash"   5 hours ago     Exited (127) 5 hours ago             trusting_greider
+a671e19820a6   hello-world   "/hello"      5 hours ago     Exited (0) 5 hours ago               blissful_mclaren
+root@ip-172-31-4-0:/home/ubuntu# docker exec -it hello bash
+root@97ce5cf7c127:/# exit
+exit
+root@ip-172-31-4-0:/home/ubuntu# docker ps -a
+CONTAINER ID   IMAGE         COMMAND       CREATED         STATUS                     PORTS     NAMES
+ab3fc7c87150   ubuntu        "/bin/bash"   6 minutes ago   Exited (0) 6 minutes ago             wonderful_carver
+9a7c8406daf3   ubuntu        "bash"        2 hours ago     Up 2 hours                           amazing_goodall
+97ce5cf7c127   ubuntu        "bash"        3 hours ago     Up 3 hours                           hello
+1ef62df33da2   ubuntu        "/bin/bash"   4 hours ago     Exited (0) 3 hours ago               hel
+1022b413fdd4   ubuntu        "hel"         4 hours ago     Created                              upbeat_payne
+e1f34704d978   ubuntu        "/bin/bash"   4 hours ago     Exited (0) 4 hours ago               nervous_hypatia
+be95b3d29617   ubuntu        "/bin/bash"   5 hours ago     Exited (137) 4 hours ago             jolly_hertz
+3f7e01a0b6bb   ubuntu        "/bin/bash"   5 hours ago     Exited (127) 5 hours ago             trusting_greider
+a671e19820a6   hello-world   "/hello"      5 hours ago     Exited (0) 5 hours ago               blissful_mclaren
+root@ip-172-31-4-0:/home/ubuntu# docker exec -it hello bash
+root@97ce5cf7c127:/# exit
+exit
+root@ip-172-31-4-0:/home/ubuntu# docker ps -a
+CONTAINER ID   IMAGE         COMMAND       CREATED         STATUS                     PORTS     NAMES
+ab3fc7c87150   ubuntu        "/bin/bash"   6 minutes ago   Exited (0) 6 minutes ago             wonderful_carver
+9a7c8406daf3   ubuntu        "bash"        2 hours ago     Up 2 hours                           amazing_goodall
+97ce5cf7c127   ubuntu        "bash"        3 hours ago     Up 3 hours                           hello
+1022b413fdd4   ubuntu        "hel"         4 hours ago     Created                              upbeat_payne
+e1f34704d978   ubuntu        "/bin/bash"   4 hours ago     Exited (0) 4 hours ago               nervous_hypatia
+be95b3d29617   ubuntu        "/bin/bash"   5 hours ago     Exited (137) 4 hours ago             jolly_hertz
+3f7e01a0b6bb   ubuntu        "/bin/bash"   5 hours ago     Exited (127) 5 hours ago             trusting_greider
+a671e19820a6   hello-world   "/hello"      5 hours ago     Exited (0) 5 hours ago               blissful_mclaren
+root@ip-172-31-4-0:/home/ubuntu# docker exec -it hello bash
+root@97ce5cf7c127:/# exit
+exit
+root@ip-172-31-4-0:/home/ubuntu# docker ps -a
+CONTAINER ID   IMAGE         COMMAND       CREATED         STATUS                     PORTS     NAMES
+ab3fc7c87150   ubuntu        "/bin/bash"   6 minutes ago   Exited (0) 6 minutes ago             wonderful_carver
+9a7c8406daf3   ubuntu        "bash"        2 hours ago     Up 2 hours                           amazing_goodall
+97ce5cf7c127   ubuntu        "bash"        3 hours ago     Up 3 hours                           hello
+be95b3d29617   ubuntu        "/bin/bash"   5 hours ago     Exited (137) 4 hours ago             jolly_hertz
+3f7e01a0b6bb   ubuntu        "/bin/bash"   5 hours ago     Exited (127) 5 hours ago             trusting_greider
+a671e19820a6   hello-world   "/hello"      5 hours ago     Exited (0) 5 hours ago               blissful_mclaren
+root@ip-172-31-4-0:/home/ubuntu# docker exec -it hello bash
+root@97ce5cf7c127:/# exit
+exit
+root@ip-172-31-4-0:/home/ubuntu# docker ps -a
+CONTAINER ID   IMAGE         COMMAND       CREATED         STATUS                     PORTS     NAMES
+ab3fc7c87150   ubuntu        "/bin/bash"   6 minutes ago   Exited (0) 6 minutes ago             wonderful_carver
+9a7c8406daf3   ubuntu        "bash"        2 hours ago     Up 2 hours                           amazing_goodall
+97ce5cf7c127   ubuntu        "bash"        3 hours ago     Up 3 hours                           hello
+a671e19820a6   hello-world   "/hello"      5 hours ago     Exited (0) 5 hours ago               blissful_mclaren
+root@ip-172-31-4-0:/home/ubuntu# docker exec -it hello bash
+root@97ce5cf7c127:/# exit
+exit
+root@ip-172-31-4-0:/home/ubuntu# docker ps -a
+CONTAINER ID   IMAGE         COMMAND       CREATED         STATUS                     PORTS     NAMES
+ab3fc7c87150   ubuntu        "/bin/bash"   6 minutes ago   Exited (0) 6 minutes ago             wonderful_carver
+9a7c8406daf3   ubuntu        "bash"        2 hours ago     Up 2 hours                           amazing_goodall
+97ce5cf7c127   ubuntu        "bash"        3 hours ago     Up 3 hours                           hello
+root@97ce5cf7c127:/# exit
+exit
+root@ip-172-31-4-0:/home/ubuntu# docker ps -a
+CONTAINER ID   IMAGE         COMMAND       CREATED         STATUS                     PORTS     NAMES
+ab3fc7c87150   ubuntu        "/bin/bash"   6 minutes ago   Exited (0) 6 minutes ago             wonderful_carver
+9a7c8406daf3   ubuntu        "bash"        2 hours ago     Up 2 hours                           amazing_goodall
+97ce5cf7c127   ubuntu        "bash"        3 hours ago     Up 3 hours                           hello
+ab3fc7c87150   ubuntu        "/bin/bash"   6 minutes ago   Exited (0) 6 minutes ago             wonderful_carver
+9a7c8406daf3   ubuntu        "bash"        2 hours ago     Up 2 hours                           amazing_goodall
+97ce5cf7c127   ubuntu        "bash"        3 hours ago     Up 3 hours                           hello
+0a2defd9add3   ubuntu        "/bin/bash"   3 hours ago     Exited (0) 3 hours ago               competent_feynman
+97ce5cf7c127   ubuntu        "bash"        3 hours ago     Up 3 hours                           hello
+0a2defd9add3   ubuntu        "/bin/bash"   3 hours ago     Exited (0) 3 hours ago               competent_feynman
+0a2defd9add3   ubuntu        "/bin/bash"   3 hours ago     Exited (0) 3 hours ago               competent_feynman
+1ef62df33da2   ubuntu        "/bin/bash"   5 hours ago     Exited (0) 3 hours ago               hel
+1022b413fdd4   ubuntu        "hel"         5 hours ago     Created                              upbeat_payne
+e1f34704d978   ubuntu        "/bin/bash"   5 hours ago     Exited (0) 5 hours ago               nervous_hypatia
+be95b3d29617   ubuntu        "/bin/bash"   5 hours ago     Exited (137) 5 hours ago             jolly_hertz
+3f7e01a0b6bb   ubuntu        "/bin/bash"   5 hours ago     Exited (127) 5 hours ago             trusting_greider
+e1f34704d978   ubuntu        "/bin/bash"   5 hours ago     Exited (0) 5 hours ago               nervous_hypatia
+be95b3d29617   ubuntu        "/bin/bash"   5 hours ago     Exited (137) 5 hours ago             jolly_hertz
+e1f34704d978   ubuntu        "/bin/bash"   5 hours ago     Exited (0) 5 hours ago               nervous_hypatia
+e1f34704d978   ubuntu        "/bin/bash"   5 hours ago     Exited (0) 5 hours ago               nervous_hypatia
+be95b3d29617   ubuntu        "/bin/bash"   5 hours ago     Exited (137) 5 hours ago             jolly_hertz
+3f7e01a0b6bb   ubuntu        "/bin/bash"   5 hours ago     Exited (127) 5 hours ago             trusting_greider
+a671e19820a6   hello-world   "/hello"      5 hours ago     Exited (0) 5 hours ago               blissful_mclaren
+root@ip-172-31-4-0:/home/ubuntu# docker exec -it hello bash
+root@97ce5cf7c127:/# docker start hello
+bash: docker: command not found
+root@97ce5cf7c127:/# exit
+exit
+root@ip-172-31-4-0:/home/ubuntu# docker start hello
+hello
+root@ip-172-31-4-0:/home/ubuntu# client_loop: send disconnect: Connection reset
+PS C:\Users\yaswa\Desktop\UST_DEVOPS_Training>
+
+

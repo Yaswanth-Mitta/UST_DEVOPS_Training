@@ -1,0 +1,60 @@
+# Basic run
+docker run hello-world
+
+docker run --name hel ubuntu
+
+docker run --name mhw hello-world
+
+# Run Ubuntu interactively
+docker run -it ubuntu
+
+# Run another Ubuntu container
+docker run -it ubuntu
+
+
+
+
+# Start existing containers
+docker start jolly_hertz
+docker start nervous_hypatia
+docker start hello
+docker start mhw
+
+# Stop containers
+docker stop jolly_hertz
+docker stop hello
+
+# Restart and remove
+docker restart mhw
+docker rm mhw
+
+# Show running containers
+docker ps
+
+# Show all containers
+docker ps -a
+
+# Show container IDs only
+docker ps -q
+
+# Interact with running containers
+docker exec hello pwd
+docker exec hello ls
+docker exec hello whoami
+docker exec -it hello bash
+docker exec hello bash
+docker exec -it hello date
+docker exec -it hello ls
+
+# Help and version
+docker exec --help
+docker -v
+
+# Image management
+docker images
+docker image ls
+docker search ubuntu
+docker rmi hello-world
+docker rmi 74cc54e27dc4
+
+
