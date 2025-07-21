@@ -1,0 +1,151 @@
+1  clear
+    2  docker
+    3  clear
+    4  sudo apt-get update
+    5  sudo apt-get install ca-certificates curl
+    6  sudo install -m 0755 -d /etc/apt/keyrings
+    7  sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+    8  sudo chmod a+r /etc/apt/keyrings/docker.asc
+    9  docker
+   10  apt install docker.io
+   11  clear
+   12  docker
+   13  clear
+   14  docker -V
+   15  docker
+   16  clear
+   17  dcoker run mongo
+   18  docker run mongo
+   19  doecker
+   20  docker
+   21  docker run -it ubuntu
+   22  docker ps
+   23  docker ps -a
+   24  docker kill b54
+   25  docker ps -a
+   26  docker
+   27  ls
+   28  mkdir docker-mongo
+   29  cd docker-mongo/
+   30  pwd
+   31  sudo chmod 777 /home/ubuntu/docker-mongo
+   32  ls
+   33  docker ps
+   34  docker ps -a
+   35  docker compose -f mongodb.yaml up -d
+   36  docker compose version
+   37  docker-compose version
+   38  docker-compose -f mongodb.yaml -d
+   39  snap install docker
+   40  docker compose version
+   41  apt install docker-compose
+   42  docker compose version
+   43  docker-compose -f mongodb.yaml -d
+   44  mkdir -p ~/.docker/cli-plugins/
+   45  curl -SL https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64   -o ~/.docker/cli-plugins/docker-compose
+   46  chmod +x ~/.docker/cli-plugins/docker-compose
+   47  docker compose -f mongodb.yaml up -d
+   48  docker ps -a
+   49  cd m
+   50  ls
+   51  cd docker-mongo/
+   52  docker compose -f mongodb.yaml
+   53  docker compose -f mongodb.yaml down
+   54  docker ps -a
+   55  clear
+   56  docker ps
+   57  docker compose -f mongodb.yaml up -d
+   58  docker network ls
+   59  sudo apt install -y iptables
+   60  sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 3001
+   61  cdmod 777 /home/ubuntu/cpp-project/
+   62  chmod 77 /home/ubuntu/cpp-project/
+   63  cd cpp-project/
+   64  ls
+   65  docker run
+   66  docker build -t cpp-temp
+   67  ls
+   68  docker build -t cpp-ubutnu .
+   69  docker build -t cpp-ubuntu-app .
+   70  cat Dockerfile
+   71  docker build -t cpp-ubuntu-app .
+   72  curl -I http://archive.ubuntu.com
+   73  docker build --network=host -t cpp-ubuntu-app .
+   74  cat Dockerfile
+   75  docker build -t cpp-ubuntu-app .
+   76  docker ps -a
+   77  docker run 66
+   78  docker run 66dd
+   79  docker run -d cpp-ubuntu-app
+   80  codker ps
+   81  docker ps
+   82  docker ps -a
+   83  docker exec -it 66dd
+   84  docker run -it cpp-ubuntu-app /bin/bash
+   85  ls
+   86  docker build -t cpp-ubuntu-app .
+   87  cat Dockerfile
+   88  docker ps -a
+   89  docker run --rm cpp-app
+   90  docker build -t cpp-app .
+   91  ls
+   92  docker run --rm cpp-app
+   93  docker build -t cpp-app .
+   94  docker run cpp-app
+   95  docker build -t cpp-app .
+   96  docker run cpp-app
+   97  docker exec -it cpp-app sh
+   98  docker run -it cpp-app /bin/bash
+   99  docker exec -it cpp-app /bin/bash
+  100  docker run -d -p 8080:80 nginx
+  101  docker ps
+  102  ls
+  103  cd nextjsapp/
+  104  npm i
+  105  npm run build
+  106  npm start -- -p 3000 -H 0.0.0.0
+  107  sudo lsof -i :3000
+  108  ps -a
+  109  npm start -- -p 3001 -H 0.0.0.0
+  110  docker ps -a
+  111  docker images --prune
+  112  docker --help
+  113  docker ps -a
+  114  docker ps -q
+  115  docker stop $(docker ps -a)
+  116  docker rm $(docker ps -aq)
+  117  docker ps -a
+  118  docker images
+  119  docker rm $(docker images -q)
+  120  docker rmi $(docker images -q)
+  121  docker rmi -f $(docker images -q)
+  122  apt-get install g++
+  123  ls
+  124  docker ps -a
+  125  cd ..
+  126  ls
+  127  mkdir cpp-project
+  128  ls
+  129  cd cpp-project/
+  130  ls
+  131  nano main.cpp
+  132  ls
+  133  g++ -o app main.cpp
+  134  ls
+  135  ./app
+  136  nano main.cpp
+  137  g++ -o main.cpp zpp
+  138  g++ -o app main.cpp
+  139  ls
+  140  nano main.cpp
+  141  cat main.cpp
+  142  g++ -o app main.cpp
+  143  ./app
+  144  cd ..
+  145  chomd +700 cpp-project/
+  146  chmod 700 cpp-project/
+  147  suco su
+  148  sudo su
+  149  docker volumes ls
+  150  docker volume ls
+  151  history
