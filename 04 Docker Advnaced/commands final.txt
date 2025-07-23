@@ -1,0 +1,131 @@
+1  sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    2  sudo mkdir -p /etc/apt/keyrings
+    3  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    4  echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    5  sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    6  apt get install docker.io
+    7  sudo apt-get install -y docker.io
+    8  sudo docker run hello-world
+    9  sudo apt update
+   10  sudo apt install -y docker.io
+   11  sudo systemctl start docker
+   12  sudo systemctl enable docker
+   13  docker network ls
+   14  docker network inspect bridge
+   15  docker network create my-custom-bridge-network
+   16  docker network create --subnet 172.20.0.0/16 --gateway 172.20.0.1 custom-app-network
+   17  docker network inspect my-custom-bridge-network
+   18  docker run -d --name my-nginx-app nginx:latest
+   19  docker network connect my-custom-bridge-network my-nginx-app
+   20  docker network disconnect my-custom-bridge-network my-nginx-app
+   21  docker network rm my-custom-bridge-network
+   22  docker run -it --rm --name network-test-container --network custom-app-network alpine:latest sh -c "echo 'Hello from inside the custom network' && exit"
+   23  docker network create db-network
+   24  docker run -d --name mysql-db --network db-network -e MYSQL_ROOT_PASSWORD=mysecretpassword mysql:latest
+   25  docker run -d --name phpmyadmin --network db-network -e PMA_HOST=mysql-db -p 8080:80 phpmyadmin/phpmyadmin
+   26  docker run -d --name my-web-server -p 80:80 nginx:latest
+   27  curl http://localhost
+   28  docker run -d --name my-redis-cache --hostname redis-host redis:latest       
+   29  docker network create mongo-app-network
+   30  docker run -d --name my-mongo-db --network mongo-app-network --network-alias mongo-primary --network-alias mongo-secondary mongo:latest
+   31  docker network create wordpress-network
+   32  docker run -d --name wordpress-db --network wordpress-network -e MYSQL_ROOT_PASSWORD=wordpress -e MYSQL_DATABASE=wordpress wordpress/mysql:latest
+   33  docker run -d --name wordpress-app --network wordpress-network -e WORDPRESS_DB_HOST=wordpress-db -e WORDPRESS_DB_PASSWORD=wordpress -p 8000:80 wordpress:latest  
+   34  docker volume ls
+   35  docker volume create my-data-volume
+   36  docker volume inspect my-data-volume
+   37  docker run -d --name data-writer -v my-data-volume:/app/data alpine:latest tail -f /dev/null
+   38  docker exec data-writer sh -c "echo 'Hello from volume' > /app/data/message.txt"
+   39  docker run --rm -it -v my-data-volume:/read-data alpine:latest cat /read-data/message.txt
+   40  mkdir -p ~/my-app-data
+   41  echo "Host file content" > ~/my-app-data/host-file.txt
+   42  docker run --rm -it -v ~/my-app-data:/container-data alpine:latest ls /container-data
+   43  docker volume rm my-data-volume
+   44  docker volume create pg-data
+   45  docker run -d --name my-postgres-db -e POSTGRES_PASSWORD=mysecretpassword -v pg-data:/var/lib/postgresql/data postgres:latest
+   46  mkdir -p ~/mongo-data
+   47  docker run -d --name my-mongo-instance -v ~/mongo-data:/data/db mongo:latest 
+   48  mkdir -p ~/nginx-config
+   49  docker run -d --name custom-nginx -p 8081:80 -v ~/nginx-config:/etc/nginx/conf.d:ro nginx:latest
+   50  docker volume create permission-test-volume
+   51  docker run --rm -it -v permission-test-volume:/data busybox:latest sh -c "touch /data/testfile && ls -l /data"
+   52  docker volume create ghost-content
+   53  docker run -d --name my-ghost-blog -p 2368:2368 -v ghost-content:/var/lib/ghost ghost:latest
+   54  docker volume create jenkins-home
+   55  docker run -d -p 8080:8080 -p 50000:50000 -v jenkins-home:/var/jenkins_home jenkins/jenkins:lts
+   56  docker volume inspect jenkins-home
+   57  docker stop $(docker ps -aq)
+   58  docker rm $(docker ps -aq)
+   59  docker network prune -f
+   60  docker volume prune -f
+   61  docker rmi $(docker images -aq)
+   62  docker rm -f my-nginx-app my-web-server mysql-db phpmyadmin wordpress-db wordpress-app my-postgres-db my-mongo-instance custom-nginx my-ghost-blog my-redis-cache data-writer network-test-container jenkins 2>/dev/null
+   63  docker network rm db-network mongo-app-network wordpress-network custom-app-network my-custom-bridge-network 2>/dev/null
+   64  docker volume rm pg-data jenkins-home ghost-content permission-test-volume my-data-volume 2>/dev/null
+   65  rm -rf ~/my-app-data ~/mongo-data ~/nginx-config
+   66  Option 2: apt-get install docker.io Installation + Network & Volume Commands (No Comments)
+   67  Bash
+   68  sudo apt-get update
+   69  sudo apt-get install -y docker.io
+   70  sudo systemctl start docker
+   71  sudo systemctl enable docker
+   72  docker --version
+   73  sudo docker run hello-world
+   74  sudo usermod -aG docker $USER
+   75  docker network ls
+   76  docker network inspect bridge
+   77  docker network create my-custom-bridge-network
+   78  docker network create --subnet 172.20.0.0/16 --gateway 172.20.0.1 custom-app-network
+   79  docker network inspect my-custom-bridge-network
+   80  docker run -d --name my-nginx-app nginx:latest
+   81  docker network connect my-custom-bridge-network my-nginx-app
+   82  docker network disconnect my-custom-bridge-network my-nginx-app
+   83  docker network rm my-custom-bridge-network
+   84  docker run -it --rm --name network-test-container --network custom-app-network alpine:latest sh -c "echo 'Hello from inside the custom network' && exit"
+   85  docker network create db-network
+   86  docker run -d --name mysql-db --network db-network -e MYSQL_ROOT_PASSWORD=mysecretpassword mysql:latest
+   87  docker run -d --name phpmyadmin --network db-network -e PMA_HOST=mysql-db -p 8080:80 phpmyadmin/phpmyadmin
+   88  docker run -d --name my-web-server -p 80:80 nginx:latest
+   89  curl http://localhost
+   90  docker run -d --name my-redis-cache --hostname redis-host redis:latest       
+   91  docker network create mongo-app-network
+   92  docker run -d --name my-mongo-db --network mongo-app-network --network-alias mongo-primary --network-alias mongo-secondary mongo:latest
+   93  docker network create wordpress-network
+   94  docker run -d --name wordpress-db --network wordpress-network -e MYSQL_ROOT_PASSWORD=wordpress -e MYSQL_DATABASE=wordpress wordpress/mysql:latest
+   95  docker run -d --name wordpress-app --network wordpress-network -e WORDPRESS_DB_HOST=wordpress-db -e WORDPRESS_DB_PASSWORD=wordpress -p 8000:80 wordpress:latest  
+   96  docker volume ls
+   97  docker volume create my-data-volume
+   98  docker volume inspect my-data-volume
+   99  docker run -d --name data-writer -v my-data-volume:/app/data alpine:latest tail -f /dev/null
+  100  docker exec data-writer sh -c "echo 'Hello from volume' > /app/data/message.txt"
+  101  docker run --rm -it -v my-data-volume:/read-data alpine:latest cat /read-data/message.txt
+  102  mkdir -p ~/my-app-data
+  103  echo "Host file content" > ~/my-app-data/host-file.txt
+  104  docker run --rm -it -v ~/my-app-data:/container-data alpine:latest ls /container-data
+  105  docker volume rm my-data-volume
+  106  docker volume create pg-data
+  107  docker run -d --name my-postgres-db -e POSTGRES_PASSWORD=mysecretpassword -v pg-data:/var/lib/postgresql/data postgres:latest
+  108  mkdir -p ~/mongo-data
+  109  docker run -d --name my-mongo-instance -v ~/mongo-data:/data/db mongo:latest 
+  110  mkdir -p ~/nginx-config
+  111  docker run -d --name custom-nginx -p 8081:80 -v ~/nginx-config:/etc/nginx/conf.d:ro nginx:latest
+  112  docker volume create permission-test-volume
+  113  docker run --rm -it -v permission-test-volume:/data busybox:latest sh -c "touch /data/testfile && ls -l /data"
+  114  docker volume create ghost-content
+  115  docker run -d --name my-ghost-blog -p 2368:2368 -v ghost-content:/var/lib/ghost ghost:latest
+  116  docker volume create jenkins-home
+  117  docker run -d -p 8080:8080 -p 50000:50000 -v jenkins-home:/var/jenkins_home jenkins/jenkins:lts
+  118  docker volume inspect jenkins-home
+  119  docker stop $(docker ps -aq)
+  120  docker rm $(docker ps -aq)
+  121  docker network prune -f
+  122  docker volume prune -f
+  123  docker rmi $(docker images -aq)
+  124  docker rm -f my-nginx-app my-web-server mysql-db phpmyadmin wordpress-db wordpress-app my-postgres-db my-mongo-instance custom-nginx my-ghost-blog my-redis-cache data-writer network-test-container jenkins 2>/dev/null
+  125  docker network rm db-network mongo-app-network wordpress-network custom-app-network my-custom-bridge-network 2>/dev/null
+  126  docker volume rm pg-data jenkins-home ghost-content permission-test-volume my-data-volume 2>/dev/null
+  127  rm -rf ~/my-app-data ~/mongo-data ~/nginx-config
+  128  docker ps -a
+  129  docker ps
+  130  history

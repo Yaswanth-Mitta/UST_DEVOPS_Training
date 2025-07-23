@@ -1,3 +1,6 @@
+35.175.234.121 - Master
+52.23.204.254 - Worker
+
 # Basic run
 docker run hello-world
 

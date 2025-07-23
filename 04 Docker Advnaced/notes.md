@@ -115,3 +115,12 @@ Always use **absolute paths** for volume mounting.
 ---
 
 This note covers key Docker concepts including Dockerfile, multi-stage builds, Docker Compose usage, file transfer, permissions, and volumes.
+
+
+I used this for volume mounting docker run -it -v "${PWD}:/app" gcc:latest bash  
+
+```
+    docker file code it 
+FROM gcc:latest
+WORKDIR /app
+COPY . .

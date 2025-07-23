@@ -1,0 +1,141 @@
+    1  hostnamectl set-hostname kworker
+    2  cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+    3  overlay
+    4  br_netfilter
+    5  EOF
+    6  sudo modprobe overlay
+    7  sudo modprobe br_netfilter
+    8  cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+    9  net.bridge.bridge-nf-call-iptables  = 1
+   10  net.bridge.bridge-nf-call-ip6tables = 1
+   11  net.ipv4.ip_forward                 = 1
+   12  EOF
+   13  sudo sysctl --system
+   14  lsmod | grep br_netfilter
+   15  lsmod | grep overlay
+   16  vi /etc/containerd/config.toml
+   17  systemctl restart containerd
+   18  sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+   19  sudo swapoff -a
+   20  sudo setenforce 0
+   21  sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config  
+   22  cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+   23  [kubernetes]
+   24  name=Kubernetes
+   25  baseurl=https://pkgs.k8s.io/core:/stable:/v1.26/rpm/
+   26  enabled=1
+   27  gpgcheck=1
+   28  gpgkey=https://pkgs.k8s.io/core:/stable:/v1.26/rpm/repodata/repomd.xml.key   
+   29  exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
+   30  EOF
+   31  sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes     
+   32  sudo systemctl enable --now kubelet
+   33  sudo apt-get update
+   34  # apt-transport-https may be a dummy package; if so, you can skip that package
+   35  sudo apt-get install -y apt-transport-https ca-certificates curl
+   36  curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.26/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+   37  cd /etc/apt/sources.list.d/kubernetes.list
+   38  cd /etc/apt/sources.list.d/
+   39  ls
+   40  rm -rf kubernetes.list
+   41  sudo apt-get update
+   42  # apt-transport-https may be a dummy package; if so, you can skip that package
+   43  sudo apt-get install -y apt-transport-https ca-certificates curlcurl -fsSL https://pkgs.k8s.io/core:/stable:/v1.26/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+   44  echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.26/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   45  sudo apt-get update
+   46  sudo apt-get install -y kubelet kubeadm kubectl
+   47  sudo apt-mark hold kubelet kubeadm kubectl
+   48  kubeadm version
+   49  kubectl version
+   50  # Add Docker's official GPG key:
+   51  sudo apt-get update
+   52  sudo apt-get install ca-certificates curl
+   53  sudo install -m 0755 -d /etc/apt/keyrings
+   54  sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+   55  sudo chmod a+r /etc/apt/keyrings/docker.asc
+   56  # Add the repository to Apt sources:
+   57  echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+   58    $(. /etc/os-release && echo "$VERSION_CODENAME") stable" |   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+   59  sudo apt-get update
+   60  sudo apt-get install  containerd.io
+   61  ls
+   62  cd /etc/containerd/
+   63  ls
+   64  mv * /tmp/
+   65  vi config.toml
+   66  systemctl restart containerd
+   67  sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+   68  sudo swapoff -a
+   69  watch -n 1 kubectl get po -n kube-system
+   70  ip a
+   71  kubeadm reset -f
+   72  kubectl get node
+   73  https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+   74  kubeadm init
+   75  kubectl get node
+   76  kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+   77  watch -n 1 kubectl get po -n kube-system
+   78  kubeadm reset -f
+   79  sudo su
+   80  kubectl get node
+   81  kubectl config view
+   82  kubectl get nodes
+   83  export KUBECONFIG=/etc/kubernetes/admin.conf
+   84  kubectl get nodes
+   85  kubeadm init
+   86  kubectl get node
+   87  kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+   88  watch -n 1 kubectl get po -n kube-system
+   89  kubectl describe node | grep -i taint
+   90  kubectl get node
+   91  kubectl taint node <node-name> node-role.kubernetes.io/control-plane:NoSchedule-
+   92  kubectl taint node ip-172-31-82-142 node-role.kubernetes.io/control-plane:NoSchedule-
+   93  kubectl run nginx --image=nginx
+   94  kubectl get po
+   95  kubectl get po -o wide
+   96  curl kubectl get po -o wide
+   97  curl nginx
+   98  curl 10.32.0.4
+   99  ls
+  100  mkdir f1
+  101  cd f1/
+  102  touch pod.yml
+  103  vim pod.yml
+  104  kubectl apply -f pod.yml
+  105  mv pod.yml pod.yaml
+  106  kubectl apply -f pod.yaml
+  107  chmod 777
+  108  ls -ld /home/ubuntu/f1
+  109  sudo chmod 777 ${PWD}
+  110  ls -ld /home/ubuntu/f1
+  111  pwd
+  112  ls
+  113  rm pod.yaml
+  114  ls
+  115  kubectl apply -f pod.yml
+  116  kubectl get pods
+  117  kubectl apply -f multipod.yml
+  118  kubectl get pods
+  119  ls /etc/kubernetes/
+  120  export KUBECONFIG=/etc/kubernetes/admin.conf
+  121  kubectl get pods
+  122  cd f1/
+  123  kubectl apply -f replicasets.yaml
+  124  kubectl get pods
+  125  kubectl get replicaset
+  126  kubectl delete pod my-niginx-pod
+  127  kubectl delete pod my-nginx-pd
+  128  kubectl delete pod my-nginx-pod
+  129  kubectl get pods
+  130  kubect delete pod nginx-replicaset-bx46m
+  131  kubectl get pods
+  132  kubectl get pods
+  133  kubectl delete pod nginx-replicaset-lnq7l
+  134  kubectl get pods
+  135  kubectl scale replicaset nginx-replicaset --replicas=5
+  136  kubectl get pods
+  137  kubectl scale replicaset nginx-replicaset --replicas=100
+  138  kubectl get pods
+  139  kubectl scale replicaset nginx-replicaset --replicas=2
+  140  kubectl get pods
+  141  history

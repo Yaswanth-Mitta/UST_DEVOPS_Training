@@ -1,0 +1,22 @@
+Master Node: Commands 
+
+hostnamectl set-hostname kmaster
+hostname
+kubeadm init
+kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+watch -n 1 kubectl get po -n kube-system
+kubectl run Mitta --image=nginx
+kubectl run mitta --image=nginx
+kubectl get pod -o wide
+curl 10.32.0.4
+
+
+Worker Node:
+
+hostnamectl set-hostname kworker1
+   73  hostname
+   YOU WILL GET THIS COMMANDS FROM MASTER NODES COMMANDS OUTPUT 
+   74  kubeadm join 172.31.81.227:6443 --token k64xk5.r2loxr65o4dmz8zf --discovery-token-ca-cert-hash sha256:12f222b5b0b2a4e854dcce38886d8770fc2e7282fc2a8521266767698a71e7a2
+   75  ls
+   76  ps -a
+   77  curl 10.32.0.4
