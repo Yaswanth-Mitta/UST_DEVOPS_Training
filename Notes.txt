@@ -1,6 +1,9 @@
 35.175.234.121 - Master
 52.23.204.254 - Worker
 
+
+
+
 # Basic run
 docker run hello-world
 
@@ -61,3 +64,15 @@ docker rmi hello-world
 docker rmi 74cc54e27dc4
 
 
+
+
+44.203.84.70	52.91.89.64		mittanv
+doddegowdanv
+34.238.116.50	13.222.148.70
+
+44.203.84.70	52.91.89.64		mittanv
+
+
+54.175.0.220
+
+52.1.92.56 - gunjan

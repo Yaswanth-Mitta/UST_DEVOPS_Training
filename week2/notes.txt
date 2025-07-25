@@ -1,0 +1,32 @@
+Topics covered:
+
+- Multi-stage Docker builds
+
+- Docker Volumes  
+    - Named volume mount  
+    - Bind mount
+
+- Docker Networking  
+    - Custom bridge network  
+    - Container-to-container communication
+
+- Docker Compose  
+    - Define multi-container services  
+
+- Docker Multi stage buils 
+    - optimizing resources usage for buildng docker conts
+
+- Kubernetes Objects  
+    - Pod  
+    - ReplicaSet  
+    - Deployment  
+    - Service
+
+- Rolling updates in Kubernetes  
+    - kubectl set image  
+    - Rollout status
+
+- Deploying a containerized app on Kubernetes  
+    - Docker build & push  
+    - Apply YAML files  
+    - Expose via Service

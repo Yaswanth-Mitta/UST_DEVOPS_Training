@@ -1,0 +1,50 @@
+74  hostnamectl set-hostname kmaster
+   75  kubeadm int
+   76  kubeadm init
+   77  kubeadm reset
+   78  kubeadm init
+   79  kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+   80  kubectl describe node kmaster |grep Taint
+   81  kubectl taint node kmaster  node-role.kubernetes.io/control-plane:NoSchedule
+   82  kubectl taint node kmaster  node-role.kubernetes.io/control-plane:NoSchedule-
+   83  watch -n 1 kubectl get po -A
+   72  kubeadm join 172.31.86.175:6443 --token dzdozx.u9x9k6neg2iina9x         --discovery-token-ca-cert-hash sha256:d945af61514ab34db761dffaf2c74921dcccd873d51cbce83e05c21cf7a48888
+   73  exit
+   74  hostnamectl set-hostname kmaster
+   75  kubeadm int
+   76  kubeadm init
+   77  kubeadm reset
+   78  kubeadm init
+   79  kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+   80  kubectl describe node kmaster |grep Taint
+   81  kubectl taint node kmaster  node-role.kubernetes.io/control-plane:NoSchedule
+   82  kubectl taint node kmaster  node-role.kubernetes.io/control-plane:NoSchedule-
+   83  watch -n 1 kubectl get po -A
+   84  kubectl run gunjanpod --image=nginx
+   85  kubectl get pod
+   74  hostnamectl set-hostname kmaster
+   75  kubeadm int
+   76  kubeadm init
+   77  kubeadm reset
+   78  kubeadm init
+   79  kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+   80  kubectl describe node kmaster |grep Taint
+   81  kubectl taint node kmaster  node-role.kubernetes.io/control-plane:NoSchedule
+   82  kubectl taint node kmaster  node-role.kubernetes.io/control-plane:NoSchedule-
+   83  watch -n 1 kubectl get po -A
+   78  kubeadm init
+   79  kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+   80  kubectl describe node kmaster |grep Taint
+   81  kubectl taint node kmaster  node-role.kubernetes.io/control-plane:NoSchedule
+   82  kubectl taint node kmaster  node-role.kubernetes.io/control-plane:NoSchedule-
+   83  watch -n 1 kubectl get po -A
+   80  kubectl describe node kmaster |grep Taint
+   81  kubectl taint node kmaster  node-role.kubernetes.io/control-plane:NoSchedule
+   82  kubectl taint node kmaster  node-role.kubernetes.io/control-plane:NoSchedule-
+   83  watch -n 1 kubectl get po -A
+   83  watch -n 1 kubectl get po -A
+   84  kubectl run gunjanpod --image=nginx
+   85  kubectl get pod
+   86  get pod
+   87  get pogs
+   88  history

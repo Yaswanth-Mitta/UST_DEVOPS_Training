@@ -10,6 +10,7 @@ kubectl run mitta --image=nginx
 kubectl get pod -o wide
 curl 10.32.0.4
 
+ To remove taint kubectl describe node kmaster | grep Taint
 
 Worker Node:
 
@@ -20,3 +21,21 @@ hostnamectl set-hostname kworker1
    75  ls
    76  ps -a
    77  curl 10.32.0.4
+
+
+   Working on single machine 
+   hostnamectl set-hostname kmaster
+   74  kubeadm init
+   75  mkdir -p $HOME/.kube
+   76  history
+   77  kubectl get node
+   78  kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+   79  kubectl describe node kmaster | grep Taint
+   80  kubectl taint node kmaster node-role.kubernetes.io/control-plane:NoSchedule
+   81  kubectl taint node kmaster node-role.kubernetes.io/control-plane:NoSchedule-
+   82  watch -n 1 kubectl get po -n kube-system
+   83  kubectl get po
+   84  kubectl run mitta --image=nginx
+   85  kubectl get po
+   86  watch -n 1 kubectl get po -n kube-system
+   87  kubectl get po
