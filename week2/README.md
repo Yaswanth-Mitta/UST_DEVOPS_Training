@@ -1,4 +1,31 @@
-# Docker & Kubernetes Notes
+## Docker & Kubernetes Notes
+
+---
+
+## Topics Covered
+
+- Multi-stage Docker builds
+- Docker Volumes  
+    - Named volume mount  
+    - Bind mount
+- Docker Networking  
+    - Custom bridge network  
+    - Container-to-container communication
+- Docker Compose  
+    - Define multi-container services  
+    - Compose CLI usage
+- Kubernetes Objects  
+    - Pod  
+    - ReplicaSet  
+    - Deployment  
+    - Service
+- Rolling updates in Kubernetes  
+    - kubectl set image  
+    - Rollout status
+- Deploying a containerized app on Kubernetes  
+    - Docker build & push  
+    - Apply YAML files  
+    - Expose via Service
 
 ---
 
@@ -38,24 +65,20 @@ docker run -p 8080:80 multi-stage-app
 **Explanation:**  
 Volumes are used to persist data generated and used by Docker containers.
 
-### 1. Named Volume Mount (Docker-managed)
+### Named Volume Mount (Docker-managed)
 
 ```bash
-# Create a named volume
 docker volume create mydata
-
-# Run a container with a volume mount
 docker run -d --name db -v mydata:/data mongo
 ```
 
-### 2. Bind Mount (Host-managed)
+### Bind Mount (Host-managed)
 
 ```bash
-# Run a container using a bind mount from host directory
 docker run -d --name webapp -v /path/on/host:/usr/share/nginx/html nginx
 ```
 
-**Commands to inspect volumes:**
+**Volume Commands:**
 
 ```bash
 docker volume ls
@@ -64,21 +87,20 @@ docker volume inspect mydata
 
 ---
 
+
+
 ## Docker Networking
 
 **Explanation:**  
 Docker networking allows containers to communicate securely within isolated environments.
 
 ```bash
-# Create a custom network
 docker network create mynet
-
-# Run containers on the custom network
 docker run -d --name db --network=mynet mongo
 docker run -d --name app --network=mynet myapp
 ```
 
-**Commands to inspect network:**
+**Network Commands:**
 
 ```bash
 docker network ls
@@ -125,103 +147,118 @@ docker-compose up --build
 ## Kubernetes Objects
 
 <details>
-<summary>Show Pod YAML</summary>
-
-### Pod
-
-**Explanation:**  
-A Pod is the smallest deployable unit in Kubernetes, representing a single instance of a running process.
+<summary>Pod</summary>
 
 ```yaml
+# pod.yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: myapp-pod
+  name: my-nginx-pod
   labels:
-    app: myapp
+    app: nginx
 spec:
   containers:
-  - name: myapp
-    image: nginx:latest
+  - name: nginx
+    image: nginx:1.21
     ports:
-    - containerPort: 3000
+    - containerPort: 80
+```
+
+**Pod Commands:**
+
+```bash
+kubectl apply -f pod.yaml
+kubectl get pods
+kubectl describe pod my-nginx-pod
+kubectl delete pod my-nginx-pod
 ```
 
 </details>
 
 <details>
-<summary>Show ReplicaSet YAML</summary>
-
-### ReplicaSet
-
-**Explanation:**  
-ReplicaSet ensures that a specified number of pod replicas are running at any time.
+<summary>ReplicaSet</summary>
 
 ```yaml
+# replicaset.yaml
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: myapp-replicaset
+  name: nginx-replicaset
+  labels:
+    app: nginx
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: myapp
+      app: nginx
   template:
     metadata:
       labels:
-        app: myapp
+        app: nginx
     spec:
       containers:
-      - name: myapp
-        image: myapp:latest
+      - name: nginx
+        image: nginx:1.21
         ports:
-        - containerPort: 3000
+        - containerPort: 80
+```
+
+**ReplicaSet Commands:**
+
+```bash
+kubectl apply -f replicaset.yaml
+kubectl get rs
+kubectl describe rs nginx-replicaset
+kubectl delete rs nginx-replicaset
 ```
 
 </details>
 
 <details>
-<summary>Show Deployment YAML</summary>
-
-### Deployment
-
-**Explanation:**  
-A Deployment provides declarative updates for Pods and ReplicaSets.
+<summary>Deployment</summary>
 
 ```yaml
+# deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp-deployment
+  name: nginx-deployment
+  labels:
+    app: nginx
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: myapp
+      app: nginx
   template:
     metadata:
       labels:
-        app: myapp
+        app: nginx
     spec:
       containers:
-      - name: myapp
-        image: myapp:latest
+      - name: nginx
+        image: nginx:1.21
         ports:
-        - containerPort: 3000
+        - containerPort: 80
+```
+
+**Deployment Commands:**
+
+```bash
+kubectl apply -f deployment.yaml
+kubectl get deployments
+kubectl describe deployment nginx-deployment
+kubectl delete deployment nginx-deployment
 ```
 
 </details>
 
 <details>
-<summary>Show Service YAML</summary>
-
-### Service
-
-**Explanation:**  
-A Service in Kubernetes exposes an application running on a set of Pods.
+<summary>Service</summary>
 
 ```yaml
+# service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -229,37 +266,53 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: myapp
+    app: nginx
   ports:
     - port: 80
-      targetPort: 3000
+      targetPort: 80
+```
+
+**Service Commands:**
+
+```bash
+kubectl apply -f service.yaml
+kubectl get svc
+kubectl describe svc myapp-service
+kubectl delete svc myapp-service
 ```
 
 </details>
 
-**Commands to apply:**
-
-```bash
-kubectl apply -f pod.yaml
-kubectl apply -f replicaset.yaml
-kubectl apply -f deployment.yaml
-kubectl apply -f service.yaml
-kubectl get pods,svc,deploy,rs
-```
-
 ---
 
-### Rolling Updates in Kubernetes
+## Rolling Updates in Kubernetes
 
 **Explanation:**  
 Kubernetes Deployments support rolling updates by updating pods incrementally without downtime.
 
 ```bash
-# Update the image of deployment
-kubectl set image deployment/myapp-deployment myapp=myapp:v2
+kubectl set image deployment/nginx-deployment nginx=nginx:1.22
+kubectl rollout status deployment/nginx-deployment
+kubectl rollout history deployment/nginx-deployment
+# Update image
+kubectl set image deployment/nginx-deployment nginx=nginx:1.23
 
-# Monitor rollout
-kubectl rollout status deployment/myapp-deployment
+# Check rollout status
+kubectl rollout status deployment/nginx-deployment
+
+# Rollback if needed
+kubectl rollout undo deployment/nginx-deployment
+
+# Check image and pod details
+kubectl get pods -l app=nginx
+kubectl describe pod <pod-name>
+
+# Create service (if not already)
+kubectl apply -f service.yaml
+
+# Get external IP
+kubectl get svc nginx-service
+
 ```
 
 ---
@@ -274,11 +327,9 @@ kubectl rollout status deployment/myapp-deployment
 5. Expose app via Service and access it.
 
 ```bash
-# Example end-to-end
 kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
 kubectl get services
 ```
 
----
-
-You’ve now implemented volumes, networks, Compose, Kubernetes core objects, and rolling updates in a complete deployment flow!
+You’ve now implemented volumes, networks, Compose, Kubernetes core objects, and rolling updates in a complete deployment flow.
