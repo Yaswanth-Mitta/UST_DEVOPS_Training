@@ -142,7 +142,7 @@ metadata:
 spec:
   containers:
   - name: myapp
-    image: myapp:latest
+    image: nginx:latest
     ports:
     - containerPort: 3000
 ```

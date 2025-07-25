@@ -1,19 +1,22 @@
+# replicaset.yaml
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: myapp-replicaset
+  name: nginx-replicaset
+  labels:
+    app: nginx
 spec:
-  replicas: 3
+  replicas: 3  # We want 3 pods
   selector:
     matchLabels:
-      app: myapp
+      app: nginx
   template:
     metadata:
       labels:
-        app: myapp
+        app: nginx
     spec:
       containers:
-      - name: myapp
-        image: myapp:latest
+      - name: nginx
+        image: nginx:1.21
         ports:
-        - containerPort: 3000
+        - containerPort: 80

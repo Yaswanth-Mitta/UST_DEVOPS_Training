@@ -1,19 +1,22 @@
+# deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp-deployment
+  name: nginx-deployment
+  labels:
+    app: nginx
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: myapp
+      app: nginx
   template:
     metadata:
       labels:
-        app: myapp
+        app: nginx
     spec:
       containers:
-      - name: myapp
-        image: myapp:latest
+      - name: nginx
+        image: nginx:1.21
         ports:
-        - containerPort: 3000
+        - containerPort: 80
