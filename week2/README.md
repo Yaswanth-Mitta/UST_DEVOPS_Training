@@ -6,14 +6,10 @@
 
 - Multi-stage Docker builds
 - Docker Volumes  
-    - Named volume mount  
     - Bind mount
 - Docker Networking  
     - Custom bridge network  
-    - Container-to-container communication
-- Docker Compose  
-    - Define multi-container services  
-    - Compose CLI usage
+    - Container-to-container communication 
 - Kubernetes Objects  
     - Pod  
     - ReplicaSet  

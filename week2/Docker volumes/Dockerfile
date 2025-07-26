@@ -6,7 +6,7 @@ RUN apt-get update && \
 
 WORKDIR /app
 
-COPY main.cpp
+COPY main.cpp .
 
 RUN g++ main.cpp -o app
 

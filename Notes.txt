@@ -76,3 +76,12 @@ doddegowdanv
 54.175.0.220
 
 52.1.92.56 - gunjan
+
+deploying docker image in k8s and using dockerhub
+write a simple docker nignix 
+go to docker hub account and then generate toekn ang login 
+docker login -username 
+build image and then add tag 
+docker tag image name username /imagename
+docker push 
+in the deployment use that image from hub
