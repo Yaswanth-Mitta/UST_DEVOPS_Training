@@ -13,7 +13,11 @@ jobs:
         run: git clone https://github.com/Yaswanth-Mitta/UST_DEVOPS_Training.git
 
       - name: Listing files
-        run: cd UST_DEVOPS_Training
+        run: ls
         
-      - name: checking readme file
+      - name: folder change
+        run: cd UST_DEVOPS_Training
+
+
+      - name: print readme
         run: cat README.md
