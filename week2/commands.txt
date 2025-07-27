@@ -1,0 +1,418 @@
+Commands i worked on 
+
+    1  hostnamectl set-hostname kworker
+    2  cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+    3  overlay
+    4  br_netfilter
+    5  EOF
+    6  sudo modprobe overlay
+    7  sudo modprobe br_netfilter
+    8  cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+    9  net.bridge.bridge-nf-call-iptables  = 1
+   10  net.bridge.bridge-nf-call-ip6tables = 1
+   11  net.ipv4.ip_forward                 = 1
+   12  EOF
+   13  sudo sysctl --system
+   14  lsmod | grep br_netfilter
+   15  lsmod | grep overlay
+   16  vi /etc/containerd/config.toml
+   17  systemctl restart containerd
+   18  sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+   19  sudo swapoff -a
+   20  sudo setenforce 0
+   21  sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+   22  cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+   23  [kubernetes]
+   24  name=Kubernetes
+   25  baseurl=https://pkgs.k8s.io/core:/stable:/v1.26/rpm/
+   26  enabled=1
+   27  gpgcheck=1
+   28  gpgkey=https://pkgs.k8s.io/core:/stable:/v1.26/rpm/repodata/repomd.xml.key
+   29  exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
+   30  EOF
+   31  sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+   32  sudo systemctl enable --now kubelet
+   33  sudo apt-get update
+   34  # apt-transport-https may be a dummy package; if so, you can skip that package
+   35  sudo apt-get install -y apt-transport-https ca-certificates curl
+   36  curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.26/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+   37  cd /etc/apt/sources.list.d/kubernetes.list
+   38  cd /etc/apt/sources.list.d/
+   39  ls
+   40  rm -rf kubernetes.list
+   41  sudo apt-get update
+   42  # apt-transport-https may be a dummy package; if so, you can skip that package
+   43  sudo apt-get install -y apt-transport-https ca-certificates curlcurl -fsSL https://pkgs.k8s.io/core:/stable:/v1.26/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+   44  echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.26/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   45  sudo apt-get update
+   46  sudo apt-get install -y kubelet kubeadm kubectl
+   47  sudo apt-mark hold kubelet kubeadm kubectl
+   48  kubeadm version
+   49  kubectl version
+   50  # Add Docker's official GPG key:
+   51  sudo apt-get update
+   52  sudo apt-get install ca-certificates curl
+   53  sudo install -m 0755 -d /etc/apt/keyrings
+   54  sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+   55  sudo chmod a+r /etc/apt/keyrings/docker.asc
+   56  # Add the repository to Apt sources:
+   57  echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+   58    $(. /etc/os-release && echo "$VERSION_CODENAME") stable" |   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+   59  sudo apt-get update
+   60  sudo apt-get install  containerd.io
+   61  ls
+   62  cd /etc/containerd/
+   63  ls
+   64  mv * /tmp/
+   65  vi config.toml
+   66  systemctl restart containerd
+   67  sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+   68  sudo swapoff -a
+   69  watch -n 1 kubectl get po -n kube-system
+   70  ip a
+   71  docker
+   72  snap install docker
+   73  docker ps
+   74  git clone https://github.com/Yaswanth-Mitta/UST_DEVOPS_Training
+   75  cd UST_DEVOPS_Training/
+   76  ls
+   77  cd week2/
+   78  ls
+   79  cd ..
+   80  ls
+   81  cp 04\ Docker\ Advnaced/Dockerfile week2/
+   82  cd week2/
+   83  ls
+   84  clear
+   85  ls
+   86  docker build -t single-build-c++ .
+   87  docker build -t single-build-cpp .
+   88  touch main.cpp
+   89  vim main.cpp
+   90  cat main.cpp
+   91  docker build -t single-build-cpp .
+   92  docker images
+   93  docker run -d single-build-cpp
+   94  docker ps
+   95  docker ps -a
+   96  docker run -it single-build-cpp
+   97  docker run -d single-build-cpp
+   98  docker build -t multi-d-c
+   99  docker build -t multi-d-c .
+  100  docker images
+  101  docker run -it multi-d-c
+  102  docker build -t new-ms .
+  103  docker images
+  104  ls
+  105  touch dockerfile-multi.yaml
+  106  vim dockerfile-multi.yaml
+  107  ls
+  108  docker build -t newml dockerfile-multi.yaml
+  109  mv dockerfile-multi.yaml dockerfile-multi
+  110  docker build -t newml dockerfile-multi
+  111  ls
+  112  docker build -t newml ./dockerfile-multi
+  113  clear
+  114  ls
+  115  docker build -t dockerfile-multi
+  116  docker build -f dockerfile-multi it .
+  117  docker build -f dockerfile-multi -t .
+  118  docker build -f dockerfile-multi -t ndc .
+  119  docker images
+  120  docker run -it ndc
+  121  docker build -f dockerfile-multi -t ndcc .
+  122  docker run -it ndc
+  123  docker build -f dockerfile-multi -t ndccc .
+  124  docker run -it ndccc
+  125  docker run -it --entrypoint /bin/bash ndccc
+  126  docker rmi if
+  127  docker rmi -f
+  128  docker images prune
+  129  docker images prune -all
+  130  docker image prune -a -f
+  131  docker ps
+  132  ls
+  133  vim dockerfile-multi
+  134  docker run -t -f dockerfile-multi .
+  135  docker build -t -f dockerfile-multi .
+  136  docker build -f dockerfile-multi -t .
+  137  docker bild -f dockerfile-multi -t ni .
+  138  docker build -f dockerfile-multi -t ni .
+  139  docker ps
+  140  docker images
+  141  docker run -it ni
+  142  vim dockerfile-multi
+  143  docker build -f dockerfile-multi -t nci .
+  144  docker images
+  145  docker run -it nci
+  146  docker run -it bash
+  147  docker ps
+  148  docker run nci
+  149  vim dockerfile-multi
+  150  cat dockerfile-multi
+  151  docker build -f dockerfile-multi -t new-curr .
+  152  ls
+  153  docker ps
+  154  docker ps -a
+  155  docker run new-curr
+  156  clear
+  157  vim dockerfile-multi
+  158  docker build -f dockerfile-multi -t c1
+  159  docker build -f dockerfile-multi -t c1 .
+  160  docker ps
+  161  docker images
+  162  docker run c1
+  163  vim dockerfile-multi
+  164  docker build -f dockerfile-multi -t c2 .
+  165  docker run -it c2
+  166  docker images
+  167  vim dockerfile-multi
+  168  docker build -f dockerfile-multi -t c3 .
+  169  docker run -it c3
+  170  docker images
+  171  docker ps
+  172  docker rmi -f $(docker images -aq)
+  173  docker ps
+  174  docker ps -a
+  175  docker images
+  176  ls
+  177  docker build -t single .
+  178  docker run single
+  179  docker build -f dockerfile-multi -t multi
+  180  docker build -f dockerfile-multi -t multi .
+  181  docker run multi
+  182  docker images
+  183  hostnamectl set-hostname kmaster
+  184  hostname
+  185  kubeadm init
+  186  mkdir -p $HOME/.kube
+  187  kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+  188  kubectl run Mitta --image=nginx
+  189  kubectl run mitta --image=nginx
+  190  kubectl get pod -o wide
+  191  kubectl describe node kmaster | grep Taint
+  192  kubectl taint node kmaster node-role.kubernetes.io/control-plane:NoSchedule-
+  193  kubectl get po -o wide
+  194  watch -n 1 kubectl get po -n kube-system
+  195  kubectl get po
+  196  ls
+  197  cd ..
+  198  cd ubuntu/UST_DEVOPS_Training/week2/
+  199  ls
+  200  kubectl apply -f pod.yaml
+  201  kubectl get po
+  202  watch -n 1 kubectl get po
+  203  cd..
+  204  cd ..
+  205  ls
+  206  rm -rf UST_DEVOPS_Training/
+  207  git clone https://github.com/yaswanthmitta/UST_DEVOPS_Training
+  208  git clone https://github.com/yaswanthmitta/UST_DEVOPS_Training.git
+  209  git clone https://github.com/Yaswanth-Mitta/UST_DEVOPS_Training
+  210  cd UST_DEVOPS_Training/
+  211  cd week2/
+  212  ls
+  213  kubectl apply -f pod.yaml
+  214  kubectl gt po
+  215  get
+  216  kubectl get po
+  217  kubectl delete pod myapp-pod
+  218  kubectl descirbe pod my-nginx-pod
+  219  kubectl describe pod my-nginx-pod
+  220  cat replica-sets.yml
+  221  kubectl apply -f replica-sets.yml
+  222  kubectl get rs
+  223  kubectl get po
+  224  kubectl delete pod nginx-replicaset-5h8l2
+  225  kubectl get po
+  226  kubectl get rs
+  227  kubectl delete rs nginx-replicaset
+  228  kubectl get po
+  229  kubect delet pod mitta
+  230  kubectl delete pod mitt
+  231  kubectl delete pod mittA
+  232  kubectl delete pod mitta
+  233  kubect get po rs
+  234  kubect get po , rs
+  235  kubectl get po rs
+  236  kubectl get po , rs
+  237  kubectl get po
+  238  kubectl apply -f deploy.yml
+  239  kubectl get po
+  240  kubectl get rs
+  241  kubectl delete rs nginx-deployment-d9d9d857b
+  242  kubectl get po
+  243  kubectl get rs
+  244  ls
+  245  kubectl apply -f s-load.yml
+  246  kubectl get svs
+  247  kubectl get svc
+  248  curl 10.98.106.7:80
+  249  cat s-load.yml
+  250  curl 10.96.0.1
+  251  vim s-load.yml
+  252  kubectl apply -f s-load.yml
+  253  kubectl get svc
+  254  kubectl get deployments
+  255  kubectl set image deployment/nginx-deployment nginx=nginx:1.23
+  256  kubectl get rollout status deployment/nginx-deployment
+  257  kubectl rollout status deployment/nginx-deployment
+  258  kubectl get pods
+  259  kubectl descibe po nginx-deployment-5957b4d46-4jt92
+  260  kubectl describe po nginx-deployment-5957b4d46-4jt92
+  261  kubectl rollout undo deployment/nginx-deployment
+  262  kubectl rollout history deployment/nginx-deployment
+  263  cd UST_DEVOPS_Training/week2/
+  264  vim s-load.yml
+  265  kubectl apply -f s-load.yml
+  266  kubectl get svc nginx-service
+  267  vim s-load.yml
+  268  kubectl apply -f s-load.yml
+  269  kubectl get svc nginx-service
+  270  kubectl apply -f s-load.yml
+  271  kubectl get svc -o wide
+  272  cd UST_DEVOPS_Training/
+  273  git status
+  274  git pull origin main
+  275  ls
+  276  cd week2/
+  277  ls
+  278  cd Docker\ volumes/
+  279  ls
+  280  vi main.cpp
+  281  echo "10" > input.txt
+  282  ls
+  283  docker build -t cpp-vol .
+  284  git status
+  285  git pull origin main
+  286  vim Dockerfile
+  287  docker build -t cpp-vol .
+  288  vim Dockerfile
+  289  docker build -t cpp-vol
+  290  docker build -t cpp-vol .
+  291  docker run -t cpp-vol
+  292  docker run -it cpp-vol
+  293  docker run -it cpp-vol bash
+  294  docker run -v "$PWD":/app cpp-vol
+  295  docker run -v "$PWD": cpp-vol
+  296  docker run --rm -v "/home/ubuntu/UST_DEVOPS_Training/week2/Docker volumes":/app cpp-vol
+  297  ls
+  298  mkdir data
+  299  echo "10" >  input.txt
+  300  cat input.txt
+  301  ls
+  302  pwd
+  303  ls
+  304  cd data/
+  305  docker build -t cpp-vol2
+  306  docker build -t cppvol1 .
+  307  ls
+  308  cd ..
+  309  docker build -t cppvol2 .
+  310  cd data/
+  311  cd ..
+  312  docker run -v "/home/ubuntu/UST_DEVOPS_Training/week2/Docker volumes/data":/app cppvol2
+  313  ls
+  314  vim main.cpp
+  315  docker build -t cppvol3 .
+  316  docker run --rm -v "/home/ubuntu/UST_DEVOPS_Training/week2/Docker volumes/data":/app/data -w /app cppvol2
+  317  docker ps -a
+  318  docker run -it  -v "/home/ubuntu/UST_DEVOPS_Training/week2/Docker volumes/data":/app/data -w /app cppvol2
+  319  ls
+  320  cat main.cpp
+  321  docker rmi -f $(docker images -q)
+  322  docker images
+  323  docker build -t cppvol1 .
+  324  docker images
+  325  docker run -it "$(PWD)/data:/app/data cppvol1
+  326  ls
+  327  exit
+  328  docker run -it "$(PWD)/data":/app/data cppvol1
+  329  docker run -it -v "$(PWD)/data":/app/data cppvol1
+  330  docker run -it --rm -v "$(pwd)/data":/app/data -w /app cppvol1
+  331  docker ps -a
+  332  docker run -it -v "$(pwd)/data":/app/data -w /app cppvol1
+  333  docker ps -a
+  334  docker run -it -v "$(pwd)/data":/app/data -w /app cppvol1 bash
+  335  ls
+  336  cd UST_DEVOPS_Training/
+  337  cd week2/deploy.yml
+  338  cd week2
+  339  ls
+  340  clear
+  341  cd Docker\ volumes/
+  342  ls
+  343  cd Dockerfile
+  344  cd data/
+  345  echo "10" > input.txt
+  346  ls
+  347  cat output.txt
+  348  docker network create mn1
+  349  docker network ls
+  350  docker run -d --name container1 --network mn1 ubuntu
+  351  docker run -d --name container2 --network mn1 ubuntu
+  352  docker exec -it container1 bash
+  353  docker run -dit --name container1 --network mynetwork ubuntu
+  354  docker run -t --name cont1 --network mn1 ubuntu
+  355  dokcer run -it --name cont2 --network mn1 ubuntu
+  356  docker run -it --name cont2 --network mn1 ubuntu
+  357  git clone https://github.com/vilasvarghese/docker-k8s
+  358  ls
+  359  cd docker-k8s/yaml/deployment/
+  360  ls
+  361  kubectl apply -f deploy-ng.yaml
+  362  kubectl get deploy,rs,po
+  363  cd ../service
+  364  cd ../services
+  365  cat cluster-ip.yaml
+  366  kubectl apply -f cluster-ip.yaml
+  367  kubectl get svc
+  368  curl 10.104.184.193
+  369  sudo chmod -R +r .  # give read access to all files and folders
+  370  sudo docker build -t my-nginx .
+  371  ls
+  372  cat Dockerfile
+  373  ls
+  374  mkdir nginx-app && cd nginx-app
+  375  echo "<h1>Hello from Kubernetes</h1>" > index.html
+  376  nano Dockerfile
+  377  docker build -t my-nginx .
+  378  docker login -u yaswanthmitta
+  379  docker tag my-nginx your_dockerhub_username/my-nginx:v1
+  380  docker push your_dockerhub_username/my-nginx:v1
+  381  docker tag my-nginx your_dockerhub_username/my-nginx:v1
+  382  docker push your_dockerhub_username/my-nginx:v1
+  383  docker login -u yaswanthmitta
+  384  docker tag my-nginx yaswanthmitta/my-nginx:v1
+  385  docker push yaswanthmitta/my-nginx:v1
+  386  vim depl.yml
+  387  kubectl apply -f depl.yml
+  388  vim serv.yml
+  389  kubectl apply -f service.yaml
+  390  kubectl apply -f serv.yml
+  391  curl 34.239.120.171:30080
+  392  ls
+  393  history
+  394  ls
+  395  touch Dockerfile
+  396  vim Dockerfile
+  397  echo "<h1>Hello from Kubernetes</h1>" > index.html
+  398  docker build -t my-nginx .
+  399  sudo su
+  400  clear
+  401  docker
+  402  clear
+  403  docker network create n1
+  404  docker network ls
+  405  docker run --name a1 --network n1 ubuntu
+  406  docker run it  --name a1 --network n1 ubuntu
+  407  docker run -it  --name a1 --network n1 ubuntu
+  408  docker run -it  --name a3 --network n1 ubuntu
+  409  docker run ubuntu
+  410  docker network ls
+  411  docker run -it --name a6 --network n1 ubuntu
+  412  ip a
+  413  docker ps
+  414  docker run -it  --name a3 --network n1 ubuntu
+  415  docker run -it  --name a5 --network n1 ubuntu
+  416  history
