@@ -1,19 +1,19 @@
-name: My first sample workflow
+# name: My first sample workflow
 
-on: push
+# on: push
 
-jobs:
-  first_job:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repo
-        uses: actions/checkout@v4
+# jobs:
+#   first_job:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Check out repo
+#         uses: actions/checkout@v4
 
-      - name: Welcome message
-        run: echo "My first GitHub Action"
+#       - name: Welcome message
+#         run: echo "My first GitHub Action"
 
-      - name: List files in root
-        run: ls
+#       - name: List files in root
+#         run: ls
 
-      - name: Print README file
-        run: cat README.md
+#       - name: Print README file
+#         run: cat README.md
