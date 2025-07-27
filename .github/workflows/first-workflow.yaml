@@ -15,9 +15,13 @@ jobs:
       - name: Listing files
         run: ls
         
-      - name: folder change
+        - name: folder change
         run: cd UST_DEVOPS_Training
-
+        
+        
+              - name: Listing files
+                run: ls
+                
 
       - name: print readme
         run: cat README.md
