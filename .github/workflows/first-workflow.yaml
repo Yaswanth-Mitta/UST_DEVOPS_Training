@@ -1,0 +1,19 @@
+name: My first sample workflow 
+
+on: push
+
+jobs:
+    first_job:
+      runs-on: ubuntu-latest
+      steps:
+      - name: welcome message
+        run: echo "My first github action";
+      
+      - name: cloning repo
+        run: git clone https://github.com/Yaswanth-Mitta/UST_DEVOPS_Training.git
+
+      - name: Listing files
+        run: cd UST_DEVOPS_Training
+        
+      - name: checking readme file
+        run: cat README.md
