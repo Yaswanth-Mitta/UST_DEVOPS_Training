@@ -1,7 +1,7 @@
 name: Manual Append and Push
 
 on:
-  workflow_dispatch:
+    push
 
 jobs:
   append-pipe:
