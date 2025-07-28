@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Clone the repo manually
         run: |
-          git clone https://Yaswanth-Mitta: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@github.com/Yaswanth-Mitta/UST_DEVOPS_Training.git
+          git clone https://Yaswanth-Mitta:ghp3mCkRYOgQbdjMdrpM3vDhhdi8yiYOl204vXkF@github.com/Yaswanth-Mitta/UST_DEVOPS_Training.git
           cd UST_DEVOPS_Training
 
           echo '|' >> infinite-workflow.txt
