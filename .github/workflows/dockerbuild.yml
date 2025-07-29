@@ -24,4 +24,4 @@ jobs:
           context: "./07 Github Actions"
           file: "./07 Github Actions/Dockerfile"
           push: true
-          tags: "${{ secrets.DOCKERHUB_USERNAME }}/cpp-hello:latest"
+          tags: "yaswanthmitta/cpp-hello:latest"
