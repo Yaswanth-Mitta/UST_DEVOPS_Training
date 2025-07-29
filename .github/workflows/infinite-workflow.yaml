@@ -1,23 +1,23 @@
-name: Manual Append and Push
+# name: Manual Append and Push
 
-on:
-    push
+# on:
+#     push
 
-jobs:
-  append-pipe:
-    runs-on: ubuntu-latest
+# jobs:
+#   append-pipe:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Clone the repo manually
-        run: |
-          git clone https://Yaswanth-Mitta:ghp3mCkRYOgQbdjMdrpM3vDhhdi8yiYOl204vXkF@github.com/Yaswanth-Mitta/UST_DEVOPS_Training.git
-          cd UST_DEVOPS_Training
+#     steps:
+#       - name: Clone the repo manually
+#         run: |
+#           git clone https://Yaswanth-Mitta:ghp3mCkRYOgQbdjMdrpM3vDhhdi8yiYOl204vXkF@github.com/Yaswanth-Mitta/UST_DEVOPS_Training.git
+#           cd UST_DEVOPS_Training
 
-          echo '|' >> infinite-workflow.txt
+#           echo '|' >> infinite-workflow.txt
 
-          git config --global user.name "Yaswanth-Mitta"
-          git config --global user.email "yaswanthmitta@gmail.com"
+#           git config --global user.name "Yaswanth-Mitta"
+#           git config --global user.email "yaswanthmitta@gmail.com"
 
-          git add infinite-workflow.txt
-          git commit -m "Appended | to infinite-workflow.txt" || echo "Nothing to commit"
-          git push origin HEAD:main
+#           git add infinite-workflow.txt
+#           git commit -m "Appended | to infinite-workflow.txt" || echo "Nothing to commit"
+#           git push origin HEAD:main
