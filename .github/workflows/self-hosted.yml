@@ -1,0 +1,17 @@
+name: Hello World from Container
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  say-hello:
+    # Use the label you assigned to your container runner
+    runs-on: [ self-hosted, docker ]
+    
+    steps:
+      - name: Print a greeting
+        run: |
+          echo "Hello, world!"
+          echo "This job is running on a container-based runner named $(hostname)"
+          echo "It's using the self-hosted runner and Docker labels."
