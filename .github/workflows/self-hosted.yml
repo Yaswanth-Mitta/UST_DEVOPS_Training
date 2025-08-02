@@ -7,7 +7,7 @@ on:
 jobs:
   say-hello:
     # Use the label you assigned to your container runner
-    runs-on: [ self-hosted, docker ]
+    runs-on: self-hosted
     
     steps:
       - name: Print a greeting
