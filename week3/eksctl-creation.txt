@@ -1,0 +1,102 @@
+# 1. Download eksctl and extract it
+curl --silent --location "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_Linux_amd64.tar.gz" | tar xz -C /tmp
+
+# 2. Move eksctl binary to system path
+sudo mv /tmp/eksctl /usr/local/bin
+
+# 3. Verify eksctl installation
+eksctl --version
+eksctl -v
+eksctl
+
+# 4. Create a cluster in us-east-1
+eksctl create cluster --name mitta-cluster --region us-east-1 --nodegroup-name mitta-eks-workernode --node-type t3a.medium --nodes 2 --nodes-min 2 --nodes-max 2 --managed
+
+# 5. Create another cluster (duplicate)
+eksctl create cluster --name mitta-eks-cluster --region us-east-1 --nodegroup-name mitta-eks-workernode --node-type t3a.medium --nodes 2 --nodes-min 2 --nodes-max 2 --managed
+
+# 6. Delete the second cluster
+eksctl delete cluster --region=us-east-1 --name=mitta-eks-cluster
+
+# 7. Create cluster in us-east-2
+eksctl create cluster --name mitta-eks-cluster --region us-east-2 --nodegroup-name mitta-eks-workernode --node-type t3a.medium --nodes 2 --nodes-min 2 --nodes-max 2 --managed
+
+# 8. Create cluster in ap-south-1
+eksctl create cluster --name mitta-eks-cluster --region ap-south-1 --nodegroup-name mitta-eks-workernode --node-type t3a.medium --nodes 2 --nodes-min 2 --nodes-max 2 --managed
+
+# 9. Update kubeconfig for kubectl
+aws eks update-kubeconfig --name mitta-eks-cluster --region ap-south-1
+
+# 10. View nodes
+kubectl get nodes
+
+# 11. Create nginx deployment file
+touch mitta-nginx.yml
+vim mitta-nginx.yml
+cat mitta-nginx.yml
+vim mitta-nginx.yml
+
+# 12. Write nginx deployment and service config
+cat <<EOF >mitta-nginx.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mitta-nginx-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mitta-nginx
+  template:
+    metadata:
+      labels:
+        app: mitta-nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mitta-nginx-service
+spec:
+  selector:
+    app: mitta-nginx
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+EOF
+
+# 13. Apply the configuration
+kubectl apply -f mitta-nginx.yaml
+
+# 14. Get pods and services
+kubectl get pods
+kubectl get svc
+kubectl get pods
+kubectl get svc
+
+# 15. Final Output - Pods
+kubectl get po
+NAME                                      READY   STATUS    RESTARTS   AGE
+mitta-nginx-deployment-68f75848cb-d9dng   1/1     Running   0          21m
+mitta-nginx-deployment-68f75848cb-ndb6s   1/1     Running   0          21m
+
+# 16. Final Output - Service
+kubectl get svc
+NAME                  TYPE           CLUSTER-IP     EXTERNAL-IP                                                               PORT(S)        AGE
+kubernetes            ClusterIP      10.100.0.1     <none>                                                                    443/TCP        49m
+mitta-nginx-service   LoadBalancer   10.100.50.75   a299ee1314dac434ea3187bae8fe9b70-719045022.ap-south-1.elb.amazonaws.com   80:32346/TCP   21m
+
+17. Cleanpup
+
+kubectl delete deploy mitta-nginx-deployment
+
+kubectl delete svc mitta-nginx-service
+
+eksctl delete cluster --name mitta-eks-cluster --region ap-south-1

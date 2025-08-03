@@ -1,0 +1,20 @@
+learnt how to crete pods , replica sets , deployemtn 
+
+how to expose it within cluster - cluste ip 
+how to expose them within machine using node port 
+
+how to use services - loadbalancer and use them on cloud providers and all 
+
+
+learnt how to create vpc and how iw till work internally 
+
+how to create subnets inside vpc 
+
+how to create internet gaggteways
+
+how to create route talbes for them 
+
+how to exose them to access the internet 
+
+creatd a bastion host using all the leaning of aws
+

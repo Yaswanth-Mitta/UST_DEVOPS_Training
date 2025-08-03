@@ -1,0 +1,5 @@
+Tried Github actions using multiple 
+
+- pushed docker image using github to dockerhub uisng secrects in github 
+
+- created a self hosted runner which ran ec2 instance on aws ubuntu 

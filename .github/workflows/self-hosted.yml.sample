@@ -1,0 +1,22 @@
+name: Hello World from Container
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  say-hello:
+    runs-on: [ self-hosted, docker ]
+    
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Welcome message
+        run: echo "My first GitHub Action"
+
+      - name: List files in root
+        run: ls
+
+      - name: Print README file
+        run: cat README.md
