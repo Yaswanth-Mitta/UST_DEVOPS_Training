@@ -1,0 +1,257 @@
+EKS - LLM - Flow
+
++----------------+      +---------------------+
+| Customer       |      | Application Load    |
+| (Sends Request)| ---> | Balancer (ALB)      |
++----------------+      +---------------------+
+                                 |
+                                 v
+                 +-----------------------------+
+                 | EKS Cluster                 |
+                 | (EKS Control Plane)         |
+                 +-----------------------------+
+                                 |
+                                 v
++------------------+     +------------------+
+|  Worker Node 1   |     |  Worker Node 2   |
+| (Virtual Server) |     | (Virtual Server) |
+| +--------------+ |     | +--------------+ |
+| | Pod 1        | |     | | Pod 2        | |
+| | (Container)  | |     | | (Container)  | |
+| +--------------+ |     | +--------------+ |
+| | Pod 3        | |     | | Pod 4        | |
+| +--------------+ |     | +--------------+ |
++------------------+     +------------------+
+          |                      |
+          +----------+-----------+
+                     |
+                     v
++------------------------------------+
+| SCALING LOGIC (HPA & Cluster Autoscaler) |
+| (Monitors CPU usage of Pods/Nodes)   |
++------------------------------------+
+          |      ^
+          |      | If traffic is high...
+          v      |
++------------------------------------+
+|  Cluster Autoscaler triggers       |
+|  new Worker Node(s) to be added    |
++------------------------------------+
+          |
+          v
++------------------------------------+
+|  New Pods are created on the       |
+|  new Worker Node(s) to handle load |
++------------------------------------+
+
+
+
+
+After scalling 
+
+       +------------------------------------+
+       |          User Traffic              |
+       |       (Normal Traffic)             |
+       +------------------------------------+
+                        |
+                        v
++------------------------------------+
+|  Application Load Balancer (ALB)   |
+| (Distributes requests)             |
++------------------------------------+
+                        |
+                        v
++-------------------------------------------------------------+
+|                                                             |
+|           EKS Cluster - Initial State                       |
+|  +---------------------+        +---------------------+    |
+|  |   Worker Node 1     |        |   Worker Node 2     |    |
+|  | +---------------+   |        | +---------------+   |    |
+|  | | Pod A         |   |        | | Pod C         |   |    |
+|  | +---------------+   |        | +---------------+   |    |
+|  | | Pod B         |   |        | | Pod D         |   |    |
+|  | +---------------+   |        | +---------------+   |    |
+|  +---------------------+        +---------------------+    |
+|                                                             |
++-------------------------------------------------------------+
+                        |
++------------------------------------+
+|           Traffic Spikes!          |
+| (A blog post goes viral)           |
++------------------------------------+
+                        |
+                        v
++------------------------------------+
+|   Horizontal Pod Autoscaler (HPA)  |
+|    - Detects high CPU on Pods      |
+|    - Creates more Pods             |
++------------------------------------+
+                        | (No room for new Pods on existing Nodes)
+                        v
++------------------------------------+
+|   Cluster Autoscaler (CA)          |
+|    - Detects Pods waiting to be    |
+|      scheduled                     |
+|    - Asks AWS for new Worker Node  |
++------------------------------------+
+                        |
+                        v
++-----------------------------------------------------------------+
+|                                                                 |
+|            EKS Cluster - Scaled State                           |
+|  +---------------------+        +---------------------+        |
+|  |   Worker Node 1     |        |   Worker Node 2     |        |
+|  | +---------------+   |        | +---------------+   |        |
+|  | | Pod A         |   |        | | Pod C         |   |        |
+|  | +---------------+   |        | +---------------+   |        |
+|  | | Pod B         |   |        | | Pod D         |   |        |
+|  | +---------------+   |        | +---------------+   |        |
+|  +---------------------+        +---------------------+        |
+|                                                                |
+|      (New Pods wait here)                                      |
+|                                     +---------------------+    |
+|     +-------------------------+     |   Worker Node 3     |    |
+|     |  Cluster Autoscaler     |---> | (New AWS Server)    |    |
+|     |  provisioned new node   |     | +---------------+   |    |
+|     +-------------------------+     | | Pod E (New)   |   |    |
+|                                     | +---------------+   |    |
+|                                     | | Pod F (New)   |   |    |
+|                                     | +---------------+   |    |
+|                                     +---------------------+    |
++-----------------------------------------------------------------+
+
+
+
+
+boto 3 architecture 
+
++-----------------+
+|  User's Python  |
+|   Application   |
++--------+--------+
+         |
+         v
++-----------------+
+|   Boto3 Client  |<-----------------------------+
+|   / Resourced    |                              |
++--------+--------+                              |
+         |                                       |
+         v                                       |
++-----------------+                             |
+|  Service Models |                             |
+|  (JSON APIs)    |                             |
++--------+--------+                             |
+         |                                       |
+         v                                       |
++-----------------+                             |
+|    Botocore     |                             |
+| - Session Mgmt  |                             |
+| - Credential    |                             |
+|   Provider Chain|                             |
+| - Request Sign  |                             |
+| - Retry & Error |                             |
++--------+--------+                             |
+         |                                       |
+         v                                       |
++-----------------+                             |
+|   AWS Endpoint  |                             |
+| (HTTPS Request) |                             |
++--------+--------+                             |
+         |                                       |
+         v                                       |
++-----------------+                             |
+|   AWS Service   |                             |
+|   (e.g. S3, EC2)|                             |
++-----------------+                             |
+         ^                                       |
+         |                                       |
+         +---------------------------------------+
+
+
+
+
+
+
++------------------------------------------------------+
+|                 Your Python Code                     |
+|------------------------------------------------------|
+| - You write code using boto3                         |
+| - Example: boto3.client('s3').create_bucket(...)     |
+| - This triggers the whole AWS interaction flow       |
++-----------------------------+------------------------+
+                              |
+                              v
++------------------------------------------------------+
+|                 Boto3 Library (Wrapper)              |
+|------------------------------------------------------|
+| - High-level Python SDK for AWS                      |
+| - Internally uses botocore for all real work         |
+| - Builds client/resource interfaces on the fly       |
++-----------------------------+------------------------+
+                              |
+                              v
++------------------------------------------------------+
+|        Configuration & Credential Resolution         |
+|------------------------------------------------------|
+| - Checks env vars, ~/.aws/config, IAM role           |
+| - Loads:                                             |
+|    • Access Key / Secret Key                         |
+|    • Region (e.g., us-east-1)                        |
+| - Uses botocore credential resolver chain            |
++-----------------------------+------------------------+
+                              |
+                              v
++------------------------------------------------------+
+|     Client/Resource Construction via Botocore        |
+|------------------------------------------------------|
+| - Loads JSON model for the AWS service               |
+| - Builds methods dynamically (e.g., list_buckets)    |
+| - Adds input validation rules and endpoint data      |
+| - Resource = high-level abstraction (optional)       |
++-----------------------------+------------------------+
+                              |
+                              v
++------------------------------------------------------+
+|           Request Construction & Signing             |
+|------------------------------------------------------|
+| - Builds raw HTTP request (URL, headers, payload)    |
+| - Signs it using Signature Version 4                 |
+|   (HMAC + SHA256 of body, time, region, secret key)  |
+| - Adds Authorization, X-Amz-Date headers             |
++-----------------------------+------------------------+
+                              |
+                              v
++------------------------------------------------------+
+|                 HTTPS Request (urllib3)              |
+|------------------------------------------------------|
+| - Sends request over HTTPS                           |
+| - Handles connection pooling, retries, timeouts      |
+| - Adds exponential backoff on throttling/errors      |
++-----------------------------+------------------------+
+                              |
+                              v
++------------------------------------------------------+
+|                 AWS Service API Endpoint             |
+|------------------------------------------------------|
+| - Validates your request and credentials             |
+| - Executes the operation (create, read, delete, etc) |
+| - Generates a response (JSON, XML, or empty body)    |
++-----------------------------+------------------------+
+                              |
+                              v
++------------------------------------------------------+
+|              Response Handling & Parsing             |
+|------------------------------------------------------|
+| - Botocore decodes HTTP response                     |
+| - Converts JSON/XML into Python dicts/lists          |
+| - Handles errors (AccessDenied, Throttling, etc.)    |
++-----------------------------+------------------------+
+                              |
+                              v
++------------------------------------------------------+
+|                 Output Returned to You               |
+|------------------------------------------------------|
+| - You get a Python-native response                   |
+| - Can print it, store it, loop over it, etc.         |
+| - Example: {'Buckets': [...], 'Owner': {...}}        |
++------------------------------------------------------+

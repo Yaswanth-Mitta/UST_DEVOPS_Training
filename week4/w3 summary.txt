@@ -1,0 +1,65 @@
+Presentation
+
+A fundamental understanding of the key technologies 
+
+LLMs: What are they 
+      How they work 
+      their capabilities , understanding and generation 
+
+Aws EKS: Introduction ,
+	 role in container orchestrisation 
+	 why it is suituable for deploying llms
+
+AWS services:
+	S3  Lambda , Cloud Watch , I amd and how they will interact with llms
+
+AWS BOTO3:
+	Undertaind how to programmatically interact with AWS services using python SDK
+
+
+
+
+LLMS:-
+	GPT- generative pretrained Transformer
+	
+	Used for generating sequences - based on pre trained data
+	
+	First transformer - build by google for google translate 
+	
+	
+	Transformer: 
+		1. Encoding phase - generate and assigns tokesn - Tokenization - https://tiktokenizer.vercel.app/
+		2. Vector Embedding: numerical repseantation of data  used for capturing semantic relations 
+		3. positional Encoding: The dog chased cat or The cat chased dog 
+		4. 
+		
+		
+		RNN encode each serially - one sequence at a time 
+		The RIver Bank vs The ICICI Bank there is NO context in RNN
+		
+		Slef attenttion: 
+			These are allowd to change vector embeddings - connection between vectors are allowed 
+			
+			this is single headed 
+			
+		Multi Head:
+			
+			INcreasing contextual understanding using multiple heads 
+			
+		Normalization layer: does the same steps again again with each steps evething will be refined 
+		
+		Training:
+			HI how are you - given to encoder 
+			goes to decoder <start> 
+			you have the answer - i am well calcualte loss and do back propogation 
+			
+		INferencing
+			HI how are you 
+			you get I 
+			you reperat again am 
+			you repeat again with hi how are you i am you get fine 
+			
+			
+			
+			
+			
