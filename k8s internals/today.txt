@@ -1,0 +1,8 @@
+deployment stratergies 
+    zero donw time 
+    unser stratiges 
+
+
+deployment is a k8s rsources which is used for Zero down time and version than replica sets 
+
+cluster ip is ued fo load balancing and sdrvide discorein 

@@ -1,0 +1,42 @@
+pv - persistent volumes
+pvc - persistent volumet clamims 
+
+
+
+you should delete pvc first to delete pv - if you wont do it will be in termaination state all the time 
+
+you cant delete a pvc when it attachded to a actived pod 
+
+
+Storage in Protect 
+
+if we pod -> pvc -> pv
+
+fist you should delete pod and then pvc and then pv then only it will work 
+
+
+
+Reclaim Policy: supported by the undeling cloud storage should accept all these 
+    Delete PV 
+        pv will be deleted but there are two optin 
+            1. delete the data and ebc also will be deleted 
+    Recycle
+        Data is gone , ebs is present like doing all the data deleted 
+    Retain
+        Both the data and object is saved but the 
+
+Acess MOdesl
+
+
+
+Binding 
+
+static binding 
+    it is like creating pv and then pvc and vingind them 1 to 1 it is caled static binding 
+
+dynamic binding 
+    kind: storageclaim  create it 
+
+    everytime you create a pvc it will automatically creare pv and bind it 
+
+    and you wil metin howt o create eba nd all in the strage class 
